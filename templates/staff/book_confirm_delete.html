@@ -1,0 +1,18 @@
+{% extends "staff/base_staff.html" %}
+
+{% block staff_title %}Delete book{% endblock %}
+
+{% block staff_content %}
+<header class="page-header">
+  <h1>Delete book?</h1>
+  <p class="lede">This removes <strong>{{ object.title }}</strong> from the catalog. This cannot be undone.</p>
+</header>
+
+<form method="post" class="manage-form">
+  {% csrf_token %}
+  <div class="manage-form-actions">
+    <button type="submit" class="btn btn-danger">Yes, delete book</button>
+    <a class="btn btn-outline" href="{% url 'staff:book_list' %}">Cancel</a>
+  </div>
+</form>
+{% endblock %}

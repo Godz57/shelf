@@ -1,0 +1,45 @@
+{% extends "staff/base_staff.html" %}
+
+{% block staff_title %}{{ page_title }}{% endblock %}
+
+{% block staff_content %}
+<header class="page-header">
+  <h1>{{ page_title }}</h1>
+  <p class="lede">Fill in the fields below. Only staff can see this page.</p>
+</header>
+
+<form method="post" class="manage-form" novalidate>
+  {% csrf_token %}
+  {% if form.non_field_errors %}
+    <div class="message message-error">{{ form.non_field_errors }}</div>
+  {% endif %}
+
+  {% for field in form %}
+    <div class="manage-field {% if field.name == 'authors' %}is-wide{% endif %} {% if field.name == 'is_featured' %}is-check{% endif %}">
+      {% if field.field.widget.input_type == 'checkbox' and field.name == 'is_featured' %}
+        <label class="manage-check">
+          {{ field }}
+          <span>{{ field.label }}</span>
+        </label>
+      {% else %}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+      {% endif %}
+      {% if field.help_text %}<p class="help">{{ field.help_text }}</p>{% endif %}
+      {% if field.errors %}<p class="field-error">{{ field.errors|striptags }}</p>{% endif %}
+    </div>
+  {% endfor %}
+
+  {% if object and object.cover_url %}
+    <div class="manage-field">
+      <p class="meta">Cover preview</p>
+      <img class="manage-cover-preview" src="{{ object.cover_url }}" alt="">
+    </div>
+  {% endif %}
+
+  <div class="manage-form-actions">
+    <button type="submit" class="btn">{{ submit_label }}</button>
+    <a class="btn btn-outline" href="{% url 'staff:book_list' %}">Cancel</a>
+  </div>
+</form>
+{% endblock %}

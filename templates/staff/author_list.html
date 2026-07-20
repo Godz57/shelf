@@ -1,0 +1,42 @@
+{% extends "staff/base_staff.html" %}
+
+{% block staff_title %}Manage · Authors{% endblock %}
+
+{% block staff_content %}
+<header class="page-header manage-header">
+  <div>
+    <h1>Authors</h1>
+    <p class="lede">People who write the books in your catalog.</p>
+  </div>
+  <a class="btn" href="{% url 'staff:author_add' %}">+ Add author</a>
+</header>
+
+{% if authors %}
+  <div class="manage-table-wrap">
+    <table class="manage-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Books</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for author in authors %}
+          <tr>
+            <td><strong>{{ author.name }}</strong></td>
+            <td>{{ author.book_count }}</td>
+            <td class="manage-row-actions">
+              <a href="{{ author.get_absolute_url }}" target="_blank" rel="noopener">View</a>
+              <a href="{% url 'staff:author_edit' author.slug %}">Edit</a>
+              <a class="is-danger" href="{% url 'staff:author_delete' author.slug %}">Delete</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p class="empty">No authors yet. <a href="{% url 'staff:author_add' %}">Add one</a>.</p>
+{% endif %}
+{% endblock %}

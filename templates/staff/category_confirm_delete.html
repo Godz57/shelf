@@ -1,0 +1,18 @@
+{% extends "staff/base_staff.html" %}
+
+{% block staff_title %}Delete category{% endblock %}
+
+{% block staff_content %}
+<header class="page-header">
+  <h1>Delete category?</h1>
+  <p class="lede">Remove <strong>{{ object.name }}</strong>. Categories that still have books cannot be deleted.</p>
+</header>
+
+<form method="post" class="manage-form">
+  {% csrf_token %}
+  <div class="manage-form-actions">
+    <button type="submit" class="btn btn-danger">Yes, delete category</button>
+    <a class="btn btn-outline" href="{% url 'staff:category_list' %}">Cancel</a>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends "staff/base_staff.html" %}
+
+{% block staff_title %}Manage · Overview{% endblock %}
+
+{% block staff_content %}
+<header class="page-header manage-header">
+  <div>
+    <p class="manage-kicker">Your Shelter · staff</p>
+    <h1>Manage catalog</h1>
+    <p class="lede">Same look as the public site — with tools to add, edit, and remove content.</p>
+  </div>
+  <a class="btn" href="{% url 'staff:book_add' %}">+ Add book</a>
+</header>
+
+<section class="manage-stats" aria-label="Summary">
+  <div class="manage-stat">
+    <span class="manage-stat-num">{{ stats.books }}</span>
+    <span class="manage-stat-label">Books</span>
+  </div>
+  <div class="manage-stat">
+    <span class="manage-stat-num">{{ stats.featured }}</span>
+    <span class="manage-stat-label">Featured</span>
+  </div>
+  <div class="manage-stat">
+    <span class="manage-stat-num">{{ stats.authors }}</span>
+    <span class="manage-stat-label">Authors</span>
+  </div>
+  <div class="manage-stat">
+    <span class="manage-stat-num">{{ stats.categories }}</span>
+    <span class="manage-stat-label">Categories</span>
+  </div>
+  <div class="manage-stat {% if stats.missing_covers %}is-warn{% endif %}">
+    <span class="manage-stat-num">{{ stats.missing_covers }}</span>
+    <span class="manage-stat-label">Missing covers</span>
+  </div>
+  <div class="manage-stat">
+    <span class="manage-stat-num">{{ stats.saved }}</span>
+    <span class="manage-stat-label">Saved by readers</span>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>Quick actions</h2>
+  </div>
+  <div class="manage-actions">
+    <a class="manage-action-card" href="{% url 'staff:book_add' %}">
+      <strong>Add a book</strong>
+      <span>Create a new title with cover and authors</span>
+    </a>
+    <a class="manage-action-card" href="{% url 'staff:book_list' %}">
+      <strong>Edit books</strong>
+      <span>Change details, featured flag, or delete</span>
+    </a>
+    <a class="manage-action-card" href="{% url 'staff:author_add' %}">
+      <strong>Add an author</strong>
+      <span>Writers shown on book pages</span>
+    </a>
+    <a class="manage-action-card" href="{% url 'staff:category_add' %}">
+      <strong>Add a category</strong>
+      <span>e.g. Theology, Devotional</span>
+    </a>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>Recent books</h2>
+    <a href="{% url 'staff:book_list' %}">View all →</a>
+  </div>
+  {% if recent_books %}
+    <ul class="book-grid">
+      {% for book in recent_books %}
+        <li class="book-card">
+          <a class="card-link" href="{% url 'staff:book_edit' book.slug %}">
+            <div class="book-card-cover cover-{{ book.category.slug|default:'default' }}{% if book.cover_url %} has-image{% endif %}">
+              {% if book.cover_url %}
+                <img src="{{ book.cover_url }}" alt="" width="400" height="600" loading="lazy">
+              {% else %}
+                <span class="cover-initial">{{ book.title|slice:":1" }}</span>
+              {% endif %}
+            </div>
+            <div class="book-card-body">
+              <h3>{{ book.title }}</h3>
+              <p class="meta">{{ book.category.name }}</p>
+              <div class="card-footer">
+                <span class="category-pill">Edit</span>
+                {% if book.is_featured %}<span class="badge">Featured</span>{% endif %}
+              </div>
+            </div>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty">No books yet. <a href="{% url 'staff:book_add' %}">Add the first one</a>.</p>
+  {% endif %}
+</section>
+{% endblock %}

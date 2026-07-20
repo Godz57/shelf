@@ -1,0 +1,41 @@
+{% extends "staff/base_staff.html" %}
+
+{% block staff_title %}Manage · Categories{% endblock %}
+
+{% block staff_content %}
+<header class="page-header manage-header">
+  <div>
+    <h1>Categories</h1>
+    <p class="lede">Themes used to filter books on the public site.</p>
+  </div>
+  <a class="btn" href="{% url 'staff:category_add' %}">+ Add category</a>
+</header>
+
+{% if categories %}
+  <div class="manage-table-wrap">
+    <table class="manage-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Books</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cat in categories %}
+          <tr>
+            <td><strong>{{ cat.name }}</strong></td>
+            <td>{{ cat.book_count }}</td>
+            <td class="manage-row-actions">
+              <a href="{% url 'staff:category_edit' cat.slug %}">Edit</a>
+              <a class="is-danger" href="{% url 'staff:category_delete' cat.slug %}">Delete</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p class="empty">No categories yet. <a href="{% url 'staff:category_add' %}">Add one</a>.</p>
+{% endif %}
+{% endblock %}

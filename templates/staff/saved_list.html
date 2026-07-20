@@ -1,0 +1,35 @@
+{% extends "staff/base_staff.html" %}
+
+{% block staff_title %}Manage · Saved by readers{% endblock %}
+
+{% block staff_content %}
+<header class="page-header">
+  <h1>Saved by readers</h1>
+  <p class="lede">Books people added to Your Shelter (read-only list for staff).</p>
+</header>
+
+{% if items %}
+  <div class="manage-table-wrap">
+    <table class="manage-table">
+      <thead>
+        <tr>
+          <th>Reader</th>
+          <th>Book</th>
+          <th>Saved on</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+          <tr>
+            <td>{{ item.user.username }}</td>
+            <td>{{ item.book.title }}</td>
+            <td>{{ item.created_at|date:"M j, Y" }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p class="empty">No one has saved a book yet.</p>
+{% endif %}
+{% endblock %}

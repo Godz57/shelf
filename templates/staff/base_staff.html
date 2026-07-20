@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{% block staff_title %}Manage{% endblock %}{% endblock %}
+
+{% block content %}
+<div class="manage-wrap">
+  <aside class="manage-side" aria-label="Manage menu">
+    <p class="manage-side-label">Manage catalog</p>
+    <nav class="manage-nav">
+      <a href="{% url 'staff:dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}is-active{% endif %}">Overview</a>
+      <a href="{% url 'staff:book_list' %}" class="{% if 'book' in request.resolver_match.url_name %}is-active{% endif %}">Books</a>
+      <a href="{% url 'staff:author_list' %}" class="{% if 'author' in request.resolver_match.url_name %}is-active{% endif %}">Authors</a>
+      <a href="{% url 'staff:category_list' %}" class="{% if 'category' in request.resolver_match.url_name %}is-active{% endif %}">Categories</a>
+      <a href="{% url 'staff:saved_list' %}" class="{% if request.resolver_match.url_name == 'saved_list' %}is-active{% endif %}">Saved by readers</a>
+    </nav>
+    <div class="manage-side-footer">
+      <a class="btn btn-outline btn-small" href="{% url 'catalog:home' %}">← Back to site</a>
+      <a class="btn btn-small" href="{% url 'staff:book_add' %}">+ Add book</a>
+    </div>
+  </aside>
+
+  <div class="manage-main">
+    {% block staff_content %}{% endblock %}
+  </div>
+</div>
+{% endblock %}
