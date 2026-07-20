@@ -83,3 +83,18 @@ class StaffPanelTests(TestCase):
         res = self.client.get(reverse("catalog:home"))
         self.assertContains(res, reverse("staff:dashboard"))
         self.assertContains(res, "Manage")
+
+    def test_old_admin_root_redirects_to_manage(self):
+        res = self.client.get("/admin/")
+        self.assertEqual(res.status_code, 302)
+        self.assertEqual(res.url, reverse("staff:dashboard"))
+
+    def test_old_admin_subpath_redirects_to_manage(self):
+        res = self.client.get("/admin/catalog/book/")
+        self.assertEqual(res.status_code, 302)
+        self.assertEqual(res.url, reverse("staff:dashboard"))
+
+    def test_old_admin_login_path_redirects_to_manage(self):
+        res = self.client.get("/admin/login/")
+        self.assertEqual(res.status_code, 302)
+        self.assertEqual(res.url, reverse("staff:dashboard"))

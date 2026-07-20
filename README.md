@@ -11,7 +11,8 @@ A small **gospel-publishing catalog** built with **Django** for portfolio use.
 - Book catalog with authors, categories, featured flags, and cover images
 - Public home, book list, book detail, author detail
 - Search (title / subtitle / description / author), category filter, sort
-- Django Admin with search, filters, and M2M widgets
+- **Site-styled staff manage panel** at `/manage/` (add / edit / delete books, authors, categories)
+- `/admin/` redirects to `/manage/` (legacy Django Admin UI not exposed)
 - Sign up / log in / log out
 - **Your Shelter** personal reading list (add / remove)
 - Read-only JSON API: `GET /api/books/`, `GET /api/books/<slug>/`
@@ -64,7 +65,7 @@ curl http://127.0.0.1:8000/api/books/grace-and-truth/
 
 ```
 config/          # settings, root URLs, WSGI
-catalog/         # models, views, admin, API, seed command, tests
+catalog/         # models, public views, /manage/ staff panel, API, seed, tests
 templates/       # base + catalog + registration templates
 static/css/      # site styles
 ```
