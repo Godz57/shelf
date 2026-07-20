@@ -70,6 +70,20 @@ class StaffPanelTests(TestCase):
         self.assertEqual(book.slug, "new-title")
         self.assertIn(self.author, book.authors.all())
 
+    def test_book_form_has_live_cover_preview(self):
+        self.client.login(username="admin", password="admin")
+        res = self.client.get(reverse("staff:book_add"))
+        self.assertEqual(res.status_code, 200)
+        self.assertContains(res, "cover-preview-img")
+        self.assertContains(res, "Live cover preview")
+        self.assertContains(res, "id_cover_url")
+
+        res_edit = self.client.get(
+            reverse("staff:book_edit", kwargs={"slug": self.book.slug})
+        )
+        self.assertEqual(res_edit.status_code, 200)
+        self.assertContains(res_edit, "cover-preview-img")
+
     def test_staff_can_delete_book(self):
         self.client.login(username="admin", password="admin")
         res = self.client.post(

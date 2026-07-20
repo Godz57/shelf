@@ -1,22 +1,25 @@
-# Screenshots (portfolio)
+# Screenshots
 
-Capture three images for the README and LinkedIn/CV links. Use a wide browser window (~1400px) so side vines show.
+Checked into this folder for the project README:
 
-## Recommended shots
+| File | Page |
+|------|------|
+| `01-home.png` | `/` |
+| `02-books-search.png` | `/books/?q=grace` |
+| `03-manage.png` | `/manage/` (staff login) |
 
-| File (suggested name) | Page | What to show |
-|----------------------|------|----------------|
-| `01-home.png` | `/` | Hero, Tonight’s pick, featured grid |
-| `02-books-search.png` | `/books/?q=grace` | Search filters + results |
-| `03-manage.png` | `/manage/` | Staff dashboard (log in as staff first) |
+## Recapture (optional)
 
-## How to capture (Windows)
+```powershell
+# Terminal 1
+python manage.py runserver
 
-1. Start the app: `python manage.py runserver`
-2. Open the URL, hard-refresh (`Ctrl+F5`)
-3. Use Win+Shift+S or browser devtools device mode
-4. Save PNGs into this folder (optional commit) or attach in README later
+# Terminal 2 — example with playwright-cli
+playwright-cli open http://127.0.0.1:8000/
+playwright-cli resize 1400 900
+playwright-cli screenshot --filename docs/screenshots/01-home.png
+```
 
-## Optional: live URL
+For manage: log in as staff first, then screenshot `/manage/`.
 
-After deploy review: `https://shelter-phi.vercel.app/`
+Live site: https://shelter-phi.vercel.app

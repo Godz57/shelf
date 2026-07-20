@@ -2217,9 +2217,52 @@ code {
 }
 
 .manage-cover-preview {
-  max-width: 140px;
+  max-width: 160px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow);
+  background: var(--surface-warm);
+  display: block;
+}
+
+.manage-field.is-cover .cover-preview-panel {
+  margin-top: 0.85rem;
+  padding: 0.9rem 1rem;
+  background: var(--surface-warm);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+
+.cover-preview-label {
+  margin: 0 0 0.55rem;
+  font-weight: 700;
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.78rem;
+}
+
+.cover-preview-frame {
+  min-height: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+}
+
+.cover-preview-empty,
+.cover-preview-error {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.cover-preview-error {
+  color: #8b1e1e;
 }
 
 .message-error {

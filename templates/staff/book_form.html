@@ -8,14 +8,14 @@
   <p class="lede">Fill in the fields below. Only staff can see this page.</p>
 </header>
 
-<form method="post" class="manage-form" novalidate>
+<form method="post" class="manage-form" novalidate id="book-manage-form">
   {% csrf_token %}
   {% if form.non_field_errors %}
     <div class="message message-error">{{ form.non_field_errors }}</div>
   {% endif %}
 
   {% for field in form %}
-    <div class="manage-field {% if field.name == 'authors' %}is-wide{% endif %} {% if field.name == 'is_featured' %}is-check{% endif %}">
+    <div class="manage-field {% if field.name == 'authors' %}is-wide{% endif %} {% if field.name == 'is_featured' %}is-check{% endif %} {% if field.name == 'cover_url' %}is-cover{% endif %}">
       {% if field.field.widget.input_type == 'checkbox' and field.name == 'is_featured' %}
         <label class="manage-check">
           {{ field }}
@@ -27,19 +27,94 @@
       {% endif %}
       {% if field.help_text %}<p class="help">{{ field.help_text }}</p>{% endif %}
       {% if field.errors %}<p class="field-error">{{ field.errors|striptags }}</p>{% endif %}
+
+      {% if field.name == 'cover_url' %}
+        <div class="cover-preview-panel" id="cover-preview-panel">
+          <p class="meta cover-preview-label">Live cover preview</p>
+          <div class="cover-preview-frame">
+            <img
+              id="cover-preview-img"
+              class="manage-cover-preview"
+              src="{% if form.cover_url.value %}{{ form.cover_url.value }}{% elif object.cover_url %}{{ object.cover_url }}{% endif %}"
+              alt="Cover preview"
+              {% if not form.cover_url.value and not object.cover_url %}hidden{% endif %}
+            >
+            <p class="cover-preview-empty" id="cover-preview-empty" {% if form.cover_url.value or object.cover_url %}hidden{% endif %}>
+              Paste an image URL above to preview the cover.
+            </p>
+            <p class="cover-preview-error" id="cover-preview-error" hidden>
+              Could not load that image. Check the URL.
+            </p>
+          </div>
+        </div>
+      {% endif %}
     </div>
   {% endfor %}
-
-  {% if object and object.cover_url %}
-    <div class="manage-field">
-      <p class="meta">Cover preview</p>
-      <img class="manage-cover-preview" src="{{ object.cover_url }}" alt="">
-    </div>
-  {% endif %}
 
   <div class="manage-form-actions">
     <button type="submit" class="btn">{{ submit_label }}</button>
     <a class="btn btn-outline" href="{% url 'staff:book_list' %}">Cancel</a>
   </div>
 </form>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+  var input = document.getElementById("id_cover_url");
+  var img = document.getElementById("cover-preview-img");
+  var empty = document.getElementById("cover-preview-empty");
+  var err = document.getElementById("cover-preview-error");
+  if (!input || !img) return;
+
+  function showEmpty() {
+    img.hidden = true;
+    img.removeAttribute("src");
+    if (empty) empty.hidden = false;
+    if (err) err.hidden = true;
+  }
+
+  function showError() {
+    img.hidden = true;
+    if (empty) empty.hidden = true;
+    if (err) err.hidden = false;
+  }
+
+  function showImage(url) {
+    img.hidden = false;
+    img.src = url;
+    if (empty) empty.hidden = true;
+    if (err) err.hidden = true;
+  }
+
+  function update() {
+    var url = (input.value || "").trim();
+    if (!url) {
+      showEmpty();
+      return;
+    }
+    if (!/^https?:\/\//i.test(url)) {
+      showError();
+      return;
+    }
+    showImage(url);
+  }
+
+  img.addEventListener("error", function () {
+    if (img.getAttribute("src")) showError();
+  });
+  img.addEventListener("load", function () {
+    if (err) err.hidden = true;
+    img.hidden = false;
+    if (empty) empty.hidden = true;
+  });
+
+  input.addEventListener("input", update);
+  input.addEventListener("change", update);
+  input.addEventListener("paste", function () {
+    setTimeout(update, 0);
+  });
+  update();
+})();
+</script>
 {% endblock %}

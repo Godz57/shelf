@@ -27,11 +27,12 @@ def main() -> None:
         from catalog.permissions import ensure_staff_profile
         from django.contrib.auth import get_user_model
 
-        if Book.objects.count() == 0:
-            print("Empty catalog — running seed_catalog…")
-            call_command("seed_catalog", verbosity=1)
-        else:
-            print(f"Catalog already has {Book.objects.count()} books — skip seed.")
+        # Idempotent: creates missing sample books and refreshes cover URLs
+        print(
+            f"Running seed_catalog (catalog currently has "
+            f"{Book.objects.count()} books)…"
+        )
+        call_command("seed_catalog", verbosity=1)
 
         User = get_user_model()
         if not User.objects.filter(is_superuser=True).exists():

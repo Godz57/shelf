@@ -54,13 +54,21 @@ static/          # css, js, brand images
 
 ## Screenshots
 
-See [docs/screenshots/README.md](docs/screenshots/README.md) for capture guide.
+| Home | Search | Staff manage |
+|------|--------|--------------|
+| ![Home](docs/screenshots/01-home.png) | ![Books search](docs/screenshots/02-books-search.png) | ![Manage](docs/screenshots/03-manage.png) |
 
-Suggested set for portfolios:
+- **Home** — hero, Tonight’s pick, featured grid  
+- **Books** — live search (`?q=grace`)  
+- **Manage** — site-styled staff dashboard (`/manage/`)
 
-1. Home (hero + featured)
-2. Books with search
-3. Staff manage dashboard
+Recapture guide: [docs/screenshots/README.md](docs/screenshots/README.md)
+
+## Portfolio / CV one-liner
+
+> Django catalog app (Shelter) with models, staff manage panel, auth, search, reading list, and read-only JSON API — deployed on Vercel with Postgres.
+
+Links: [Live](https://shelter-phi.vercel.app) · [GitHub](https://github.com/Godz57/shelf) · [About](https://shelter-phi.vercel.app/about/)
 
 ## Local setup
 
