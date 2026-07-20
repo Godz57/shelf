@@ -7,7 +7,7 @@ A small **gospel-publishing catalog** built with **Django** for portfolio use.
 > **Disclaimer:** Fictional titles and authors only. **Not affiliated with Crossway** or any publisher. Built as a learning / portfolio project for a Web Developer (Django) candidacy.
 
 **Live:** [https://shelter-phi.vercel.app](https://shelter-phi.vercel.app)  
-**Source:** [github.com/Godz57/shelf](https://github.com/Godz57/shelf)
+**Source:** [github.com/Godz57/shelter](https://github.com/Godz57/shelter)
 
 ## Features
 
@@ -68,7 +68,7 @@ Recapture guide: [docs/screenshots/README.md](docs/screenshots/README.md)
 
 > Django catalog app (Shelter) with models, staff manage panel, auth, search, reading list, and read-only JSON API — deployed on Vercel with Postgres.
 
-Links: [Live](https://shelter-phi.vercel.app) · [GitHub](https://github.com/Godz57/shelf) · [About](https://shelter-phi.vercel.app/about/)
+Links: [Live](https://shelter-phi.vercel.app) · [GitHub](https://github.com/Godz57/shelter) · [About](https://shelter-phi.vercel.app/about/)
 
 ## Local setup
 
