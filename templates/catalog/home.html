@@ -65,10 +65,10 @@
     </ul>
 
     <div class="side-cta">
-      <h3>My Shelter</h3>
+      <h3>Your Shelter</h3>
       <p>Sign in to save books you want to read.</p>
       {% if user.is_authenticated %}
-        <a class="btn" href="{% url 'catalog:my_shelf' %}">Open my shelter</a>
+        <a class="btn" href="{% url 'catalog:my_shelf' %}">Open your shelter</a>
       {% else %}
         <a class="btn" href="{% url 'catalog:signup' %}">Sign up free</a>
       {% endif %}

@@ -16,7 +16,7 @@
         <a href="{% url 'catalog:home' %}">Home</a>
         <a href="{% url 'catalog:book_list' %}">Books</a>
         {% if user.is_authenticated %}
-          <a href="{% url 'catalog:my_shelf' %}">My Shelter</a>
+          <a href="{% url 'catalog:my_shelf' %}">Your Shelter</a>
           <form class="inline-form" method="post" action="{% url 'logout' %}">
             {% csrf_token %}
             <button type="submit" class="link-button">Log out</button>

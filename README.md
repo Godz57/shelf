@@ -13,7 +13,7 @@ A small **gospel-publishing catalog** built with **Django** for portfolio use.
 - Search (title / subtitle / description / author), category filter, sort
 - Django Admin with search, filters, and M2M widgets
 - Sign up / log in / log out
-- **My Shelter** personal reading list (add / remove)
+- **Your Shelter** personal reading list (add / remove)
 - Read-only JSON API: `GET /api/books/`, `GET /api/books/<slug>/`
 - Seed command with sample data and cover URLs
 - Postgres-ready settings, WhiteNoise static files, Gunicorn `Procfile`
