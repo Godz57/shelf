@@ -9,9 +9,11 @@
   <link rel="stylesheet" href="{% static 'css/site.css' %}">
 </head>
 <body>
+  <div id="read-progress" class="read-progress" aria-hidden="true"></div>
+
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="{% url 'catalog:home' %}">Shelter<span>.</span></a>
+      <a class="brand" href="{% url 'catalog:home' %}" title="Shelter">Shelter<span>.</span></a>
       <nav class="nav" aria-label="Main">
         <a href="{% url 'catalog:home' %}">Home</a>
         <a href="{% url 'catalog:book_list' %}">Books</a>
@@ -51,9 +53,33 @@
           <a href="{% url 'catalog:book_list' %}">Browse</a>
           · <a href="/api/books/">JSON API</a>
         </p>
-        <p>Not affiliated with any publisher.</p>
+        <p id="stack-easter" class="stack-easter" title="…">Not affiliated with any publisher.</p>
       </div>
     </div>
   </footer>
+
+  <div id="toast-root" class="toast-root" aria-live="polite"></div>
+
+  <dialog id="stack-modal" class="stack-modal">
+    <div class="stack-modal-inner">
+      <p class="hero-kicker not-found-kicker">Under the hood</p>
+      <h2>Shelter stack</h2>
+      <ul class="stack-list">
+        <li><strong>Python</strong> 3.12+</li>
+        <li><strong>Django</strong> 5.2 · templates + auth</li>
+        <li><strong>DRF</strong> read-only JSON API</li>
+        <li><strong>Postgres</strong> (Neon) · SQLite local</li>
+        <li><strong>Vercel</strong> · WhiteNoise · Gunicorn pattern</li>
+      </ul>
+      <p class="meta">Double-click the footer disclaimer anytime to reopen this card.</p>
+      <div class="hero-actions">
+        <a class="btn" href="https://github.com/Godz57/shelf" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <button type="button" class="btn btn-outline" data-close-modal>Close</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="{% static 'js/site.js' %}" defer></script>
+  {% block extra_js %}{% endblock %}
 </body>
 </html>

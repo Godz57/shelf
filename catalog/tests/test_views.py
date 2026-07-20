@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from catalog.models import Author, Book, Category
@@ -77,3 +77,10 @@ class CatalogViewTests(TestCase):
         self.assertEqual(res.status_code, 200)
         content = res.content.decode()
         self.assertLess(content.index("Alpha"), content.index("Grace and Truth"))
+
+    @override_settings(DEBUG=False)
+    def test_custom_404_page(self):
+        res = self.client.get("/this-page-is-not-on-any-shelf/")
+        self.assertEqual(res.status_code, 404)
+        self.assertContains(res, "wandered off the shelf", status_code=404)
+        self.assertContains(res, "Find me a book", status_code=404)

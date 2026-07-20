@@ -16,11 +16,24 @@
       <a class="btn btn-ghost" href="{% url 'catalog:signup' %}">Create account</a>
     </div>
   </div>
-  <div class="hero-orbs" aria-hidden="true">
-    <div class="orb">G</div>
-    <div class="orb">T</div>
-    <div class="orb">M</div>
-    <div class="orb">S</div>
+  <div class="hero-orbs" aria-label="Decorative letters — try clicking in order">
+    <div class="orb" data-letter="G">G</div>
+    <div class="orb" data-letter="T">T</div>
+    <div class="orb" data-letter="M">M</div>
+    <div class="orb" data-letter="S">S</div>
+  </div>
+</section>
+
+<section class="tonight-pick" aria-labelledby="tonight-heading">
+  <div class="tonight-pick-head">
+    <div>
+      <h2 id="tonight-heading">Tonight’s pick</h2>
+      <p class="meta">One random title from the catalog — redraw anytime.</p>
+    </div>
+    <button type="button" class="btn btn-outline" id="tonight-pick-btn">Draw a book</button>
+  </div>
+  <div id="tonight-pick-stage" class="tonight-pick-stage">
+    <p class="tonight-placeholder">Press the button to reveal a cover.</p>
   </div>
 </section>
 
@@ -73,6 +86,8 @@
         <a class="btn" href="{% url 'catalog:signup' %}">Sign up free</a>
       {% endif %}
     </div>
+
+    <p class="hint keyboard-hint">Shortcuts: <kbd>/</kbd> search · <kbd>g</kbd> <kbd>h</kbd> home · <kbd>g</kbd> <kbd>b</kbd> books</p>
   </aside>
 </div>
 {% endblock %}

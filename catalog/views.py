@@ -128,3 +128,8 @@ def shelf_remove(request, book_id):
     messages.info(request, f'Removed “{book.title}” from your shelter.')
     next_url = request.POST.get("next") or reverse("catalog:my_shelf")
     return redirect(next_url)
+
+
+def page_not_found(request, exception):
+    """Friendly 404 for public site (handler404)."""
+    return render(request, "404.html", status=404)

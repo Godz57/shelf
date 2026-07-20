@@ -11,7 +11,7 @@
 {% if items %}
   <ul class="book-grid">
     {% for item in items %}
-      <li class="book-card">
+      <li class="book-card shelf-item">
         <a class="card-link" href="{{ item.book.get_absolute_url }}">
           <div class="book-card-cover cover-{{ item.book.category.slug|default:'default' }}{% if item.book.cover_url %} has-image{% endif %}">
             {% if item.book.cover_url %}

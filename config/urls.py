@@ -18,3 +18,5 @@ urlpatterns = [
     path("api/", include("catalog.api_urls")),
     path("", include("catalog.urls")),
 ]
+
+handler404 = "catalog.views.page_not_found"
