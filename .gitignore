@@ -8,6 +8,9 @@ db.sqlite3
 .env.local
 .env*.local
 .vercel
+.agents/
+.claude/
+skills-lock.json
 .staticfiles/
 staticfiles/
 .DS_Store
@@ -21,3 +24,4 @@ htmlcov/
 
 
 static/img/
+.env*
