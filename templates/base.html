@@ -4,19 +4,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Shelf{% endblock %} · Gospel Publishing Catalog</title>
-  <meta name="description" content="Shelf — a Django portfolio catalog of gospel-centered books with search, accounts, and a JSON API.">
+  <title>{% block title %}Shelter{% endblock %} · Gospel Publishing Catalog</title>
+  <meta name="description" content="Shelter — a Django portfolio catalog of gospel-centered books with search, accounts, and a JSON API.">
   <link rel="stylesheet" href="{% static 'css/site.css' %}">
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="{% url 'catalog:home' %}">Shelf<span>.</span></a>
+      <a class="brand" href="{% url 'catalog:home' %}">Shelter<span>.</span></a>
       <nav class="nav" aria-label="Main">
         <a href="{% url 'catalog:home' %}">Home</a>
         <a href="{% url 'catalog:book_list' %}">Books</a>
         {% if user.is_authenticated %}
-          <a href="{% url 'catalog:my_shelf' %}">My Shelf</a>
+          <a href="{% url 'catalog:my_shelf' %}">My Shelter</a>
           <form class="inline-form" method="post" action="{% url 'logout' %}">
             {% csrf_token %}
             <button type="submit" class="link-button">Log out</button>
@@ -43,7 +43,7 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
-        <p class="footer-brand">Shelf.</p>
+        <p class="footer-brand">Shelter.</p>
         <p>Portfolio Django catalog · fictional titles only.</p>
       </div>
       <div>

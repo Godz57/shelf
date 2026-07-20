@@ -1,4 +1,4 @@
-"""Django settings for Shelf."""
+"""Django settings for Shelter."""
 
 import os
 from pathlib import Path

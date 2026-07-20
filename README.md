@@ -1,21 +1,21 @@
-# Shelf
+# Shelter
 
 A small **gospel-publishing catalog** built with **Django** for portfolio use.
 
-Shelf demonstrates the same web patterns used by content/publishing products: catalog models, staff admin, search and filters, authenticated reading lists, and a thin read-only JSON API — server-rendered with Django templates (no SPA).
+**Shelter** (as in *abrigo*) demonstrates the same web patterns used by content/publishing products: catalog models, staff admin, search and filters, authenticated reading lists, and a thin read-only JSON API — server-rendered with Django templates (no SPA).
 
 > **Disclaimer:** Fictional titles and authors only. **Not affiliated with Crossway** or any publisher. Built as a learning / portfolio project for a Web Developer (Django) candidacy.
 
 ## Features
 
-- Book catalog with authors, categories, featured flags
+- Book catalog with authors, categories, featured flags, and cover images
 - Public home, book list, book detail, author detail
 - Search (title / subtitle / description / author), category filter, sort
 - Django Admin with search, filters, and M2M widgets
 - Sign up / log in / log out
-- **My Shelf** personal reading list (add / remove)
+- **My Shelter** personal reading list (add / remove)
 - Read-only JSON API: `GET /api/books/`, `GET /api/books/<slug>/`
-- Seed command with sample data
+- Seed command with sample data and cover URLs
 - Postgres-ready settings, WhiteNoise static files, Gunicorn `Procfile`
 - Automated tests (`python manage.py test`)
 
@@ -102,7 +102,7 @@ gunicorn config.wsgi --log-file -
 
 ## Why this project
 
-Crossway-style products are content-heavy web apps: catalogs, admin tooling, accounts, and APIs. Shelf is a focused exercise in those Django fundamentals — honest portfolio evidence, not a claim of years of production Django tenure.
+Crossway-style products are content-heavy web apps: catalogs, admin tooling, accounts, and APIs. Shelter is a focused exercise in those Django fundamentals — honest portfolio evidence, not a claim of years of production Django tenure.
 
 ## License
 

@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}My Shelf{% endblock %}
+{% block title %}My Shelter{% endblock %}
 
 {% block content %}
 <header class="page-header">
-  <h1>My Shelf</h1>
+  <h1>My Shelter</h1>
   <p class="lede">Books you want to read, saved to your account.</p>
 </header>
 
@@ -46,6 +46,6 @@
     {% endfor %}
   </ul>
 {% else %}
-  <p class="empty">Your shelf is empty. <a href="{% url 'catalog:book_list' %}">Browse books</a> and add a few.</p>
+  <p class="empty">Your shelter is empty. <a href="{% url 'catalog:book_list' %}">Browse books</a> and add a few.</p>
 {% endif %}
 {% endblock %}

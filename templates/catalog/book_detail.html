@@ -52,13 +52,13 @@
             <form method="post" action="{% url 'catalog:shelf_remove' book.id %}">
               {% csrf_token %}
               <input type="hidden" name="next" value="{{ request.path }}">
-              <button type="submit" class="btn btn-secondary">Remove from My Shelf</button>
+              <button type="submit" class="btn btn-secondary">Remove from My Shelter</button>
             </form>
           {% else %}
             <form method="post" action="{% url 'catalog:shelf_add' book.id %}">
               {% csrf_token %}
               <input type="hidden" name="next" value="{{ request.path }}">
-              <button type="submit" class="btn">Add to My Shelf</button>
+              <button type="submit" class="btn">Add to My Shelter</button>
             </form>
           {% endif %}
         {% else %}

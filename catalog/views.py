@@ -115,7 +115,7 @@ def my_shelf(request):
 def shelf_add(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
     ReadingListItem.objects.get_or_create(user=request.user, book=book)
-    messages.success(request, f'Added “{book.title}” to your shelf.')
+    messages.success(request, f'Added “{book.title}” to your shelter.')
     next_url = request.POST.get("next") or book.get_absolute_url()
     return redirect(next_url)
 
@@ -125,6 +125,6 @@ def shelf_add(request, book_id):
 def shelf_remove(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
     ReadingListItem.objects.filter(user=request.user, book=book).delete()
-    messages.info(request, f'Removed “{book.title}” from your shelf.')
+    messages.info(request, f'Removed “{book.title}” from your shelter.')
     next_url = request.POST.get("next") or reverse("catalog:my_shelf")
     return redirect(next_url)
