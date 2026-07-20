@@ -1,0 +1,76 @@
+{% extends "admin/index.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="shelter-dashboard">
+  <section class="shelter-welcome">
+    <div>
+      <p class="shelter-eyebrow">Your Shelter · staff panel</p>
+      <h1>Hi{% if user.first_name %}, {{ user.first_name }}{% elif user.username %}, {{ user.username }}{% endif %} 👋</h1>
+      <p class="shelter-welcome-text">
+        Manage the catalog people see on the public site.
+        Prefer a simple path: <strong>Category → Author → Book</strong>.
+      </p>
+    </div>
+    <a class="shelter-primary-cta" href="{% url 'admin:catalog_book_add' %}">+ Add a book</a>
+  </section>
+
+  {% if shelter_stats %}
+  <section class="shelter-stats" aria-label="Catalog snapshot">
+    <div class="shelter-stat">
+      <span class="shelter-stat-num">{{ shelter_stats.books }}</span>
+      <span class="shelter-stat-label">Books</span>
+    </div>
+    <div class="shelter-stat">
+      <span class="shelter-stat-num">{{ shelter_stats.featured }}</span>
+      <span class="shelter-stat-label">Featured</span>
+    </div>
+    <div class="shelter-stat">
+      <span class="shelter-stat-num">{{ shelter_stats.authors }}</span>
+      <span class="shelter-stat-label">Authors</span>
+    </div>
+    <div class="shelter-stat">
+      <span class="shelter-stat-num">{{ shelter_stats.categories }}</span>
+      <span class="shelter-stat-label">Categories</span>
+    </div>
+    <div class="shelter-stat">
+      <span class="shelter-stat-num">{{ shelter_stats.saved }}</span>
+      <span class="shelter-stat-label">Saved by readers</span>
+    </div>
+    <div class="shelter-stat {% if shelter_stats.missing_covers %}is-warn{% endif %}">
+      <span class="shelter-stat-num">{{ shelter_stats.missing_covers }}</span>
+      <span class="shelter-stat-label">Missing covers</span>
+    </div>
+  </section>
+  {% endif %}
+
+  {% if shelter_quick_links %}
+  <section class="shelter-quick" aria-label="Quick actions">
+    <h2>Quick actions</h2>
+    <div class="shelter-quick-grid">
+      {% for link in shelter_quick_links %}
+        <a class="shelter-quick-card icon-{{ link.icon }}"
+           href="{{ link.url }}"
+           {% if link.external %}target="_blank" rel="noopener"{% endif %}>
+          <strong>{{ link.label }}</strong>
+          <span>{{ link.hint }}</span>
+        </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if shelter_tips %}
+  <section class="shelter-tips" aria-label="Tips">
+    <h2>Friendly tips</h2>
+    <ul>
+      {% for tip in shelter_tips %}
+        <li>{{ tip }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+</div>
+
+{{ block.super }}
+{% endblock %}

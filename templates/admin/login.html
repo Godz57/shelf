@@ -1,0 +1,20 @@
+{% extends "admin/login.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'admin/css/shelter_admin.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="shelter-login-intro">
+  <p class="shelter-eyebrow">Your Shelter</p>
+  <h1>Staff sign-in</h1>
+  <p>Use your admin account to manage books, authors, and the catalog.</p>
+</div>
+{{ block.super }}
+<p class="shelter-login-hint">
+  Local portfolio default: user <code>admin</code> · password <code>admin</code>
+  (change this before any real deploy).
+</p>
+{% endblock %}

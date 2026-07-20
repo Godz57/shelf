@@ -203,3 +203,226 @@ a:hover {
 #result_list tbody tr:hover {
   background: var(--shelter-soft) !important;
 }
+
+/* —— Friendly dashboard —— */
+.shelter-dashboard {
+  margin: 0 0 1.75rem;
+}
+
+.shelter-welcome {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.35rem 1.5rem;
+  background: linear-gradient(125deg, var(--shelter-teal) 0%, var(--shelter-teal-mid) 55%, #6f9a88 100%);
+  color: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(30, 77, 66, 0.18);
+  margin-bottom: 1.25rem;
+}
+
+.shelter-welcome h1 {
+  margin: 0.15rem 0 0.4rem;
+  color: #fff !important;
+  font-size: 1.65rem;
+  font-weight: 600;
+}
+
+.shelter-eyebrow {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.shelter-welcome-text {
+  margin: 0;
+  max-width: 36rem;
+  opacity: 0.92;
+  line-height: 1.5;
+}
+
+.shelter-primary-cta {
+  display: inline-block;
+  background: #fff !important;
+  color: var(--shelter-teal) !important;
+  font-weight: 700;
+  text-decoration: none !important;
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.shelter-primary-cta:hover {
+  filter: brightness(0.97);
+}
+
+.shelter-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.shelter-stat {
+  background: #fff;
+  border: 1px solid var(--shelter-line);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(30, 77, 66, 0.05);
+}
+
+.shelter-stat.is-warn {
+  border-color: #e0b35a;
+  background: #fff9ef;
+}
+
+.shelter-stat-num {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--shelter-teal);
+  line-height: 1.1;
+}
+
+.shelter-stat-label {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #5b675f;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.shelter-quick h2,
+.shelter-tips h2 {
+  color: var(--shelter-teal);
+  font-size: 1.1rem;
+  margin: 0 0 0.75rem;
+}
+
+.shelter-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.shelter-quick-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  background: #fff;
+  border: 1px solid var(--shelter-line);
+  border-radius: 12px;
+  padding: 1rem;
+  text-decoration: none !important;
+  color: var(--shelter-ink) !important;
+  box-shadow: 0 2px 8px rgba(30, 77, 66, 0.05);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.shelter-quick-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--shelter-sage);
+  box-shadow: 0 8px 20px rgba(30, 77, 66, 0.1);
+}
+
+.shelter-quick-card strong {
+  color: var(--shelter-teal);
+  font-size: 0.98rem;
+}
+
+.shelter-quick-card span {
+  font-size: 0.85rem;
+  color: #5b675f;
+}
+
+.shelter-tips {
+  background: var(--shelter-soft);
+  border: 1px solid var(--shelter-mint);
+  border-radius: 12px;
+  padding: 1rem 1.15rem 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.shelter-tips ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--shelter-ink);
+}
+
+.shelter-tips li {
+  margin: 0.35rem 0;
+}
+
+.shelter-help-box {
+  background: var(--shelter-soft);
+  border-left: 3px solid var(--shelter-sage);
+  padding: 0.65rem 0.85rem;
+  border-radius: 0 8px 8px 0;
+  margin: 0.35rem 0;
+  max-width: 32rem;
+}
+
+.shelter-help-muted {
+  color: #5b675f;
+  font-size: 0.9rem;
+  margin: 0.4rem 0 0;
+}
+
+.shelter-howto {
+  margin: 0.25rem 0 0;
+  padding-left: 1.2rem;
+  max-width: 36rem;
+  line-height: 1.55;
+}
+
+.shelter-btn-link {
+  display: inline-block;
+  font-weight: 700;
+  padding: 0.4rem 0.85rem;
+  background: var(--shelter-soft);
+  border-radius: 999px;
+  text-decoration: none !important;
+}
+
+.shelter-login-intro {
+  text-align: center;
+  margin: 0 0 1rem;
+}
+
+.shelter-login-intro h1 {
+  margin: 0.25rem 0;
+  color: var(--shelter-teal);
+}
+
+.shelter-login-intro p {
+  color: #5b675f;
+  margin: 0.35rem 0 0;
+}
+
+.shelter-login-hint {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.88rem;
+  color: #5b675f;
+}
+
+.shelter-login-hint code {
+  background: var(--shelter-soft);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+/* Soften default app list under dashboard */
+#content-main .app-catalog.module caption,
+#content-main .module caption {
+  border-radius: 8px 8px 0 0;
+}
