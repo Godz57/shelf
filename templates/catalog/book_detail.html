@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+<article class="book-detail">
+  <p class="breadcrumb">
+    <a href="{% url 'catalog:book_list' %}">Books</a> /
+    <a href="{% url 'catalog:book_list' %}?category={{ book.category.slug }}">{{ book.category.name }}</a>
+  </p>
+
+  <h1>{{ book.title }}</h1>
+  {% if book.subtitle %}<p class="subtitle">{{ book.subtitle }}</p>{% endif %}
+
+  <p class="meta">
+    {% if book.is_featured %}<span class="badge">Featured</span>{% endif %}
+    {% for author in book.authors.all %}
+      <a href="{{ author.get_absolute_url }}">{{ author.name }}</a>{% if not forloop.last %}, {% endif %}
+    {% empty %}
+      Unknown author
+    {% endfor %}
+    {% if book.published_date %} · {{ book.published_date|date:"Y" }}{% endif %}
+    {% if book.isbn %} · ISBN {{ book.isbn }}{% endif %}
+  </p>
+
+  <div class="description">
+    {{ book.description|linebreaks }}
+  </div>
+
+  {% if user.is_authenticated %}
+    {% if on_shelf %}
+      <form method="post" action="{% url 'catalog:shelf_remove' book.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.path }}">
+        <button type="submit" class="btn btn-secondary">Remove from My Shelf</button>
+      </form>
+    {% else %}
+      <form method="post" action="{% url 'catalog:shelf_add' book.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.path }}">
+        <button type="submit" class="btn">Add to My Shelf</button>
+      </form>
+    {% endif %}
+  {% else %}
+    <p class="hint"><a href="{% url 'login' %}">Log in</a> to save this book to your shelf.</p>
+  {% endif %}
+</article>
+{% endblock %}

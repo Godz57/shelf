@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}{{ author.name }}{% endblock %}
+
+{% block content %}
+<article>
+  <h1>{{ author.name }}</h1>
+  {% if author.bio %}
+    <div class="description">{{ author.bio|linebreaks }}</div>
+  {% endif %}
+
+  <h2>Books</h2>
+  {% if books %}
+    <ul class="book-grid">
+      {% for book in books %}
+        <li class="book-card">
+          <a href="{{ book.get_absolute_url }}">
+            <h3>{{ book.title }}</h3>
+            <p class="meta">{{ book.category.name }}</p>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty">No books for this author yet.</p>
+  {% endif %}
+</article>
+{% endblock %}

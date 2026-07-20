@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>A quiet shelf of gospel-centered books</h1>
+  <p class="lede">
+    Browse a sample publishing catalog built with Django:
+    models, admin, search, accounts, and a small JSON API.
+  </p>
+  <p>
+    <a class="btn" href="{% url 'catalog:book_list' %}">Browse books</a>
+  </p>
+</section>
+
+<section>
+  <h2>Featured</h2>
+  {% if featured_books %}
+    <ul class="book-grid">
+      {% for book in featured_books %}
+        <li class="book-card">
+          <a href="{{ book.get_absolute_url }}">
+            <h3>{{ book.title }}</h3>
+            <p class="meta">
+              {% for author in book.authors.all %}{{ author.name }}{% if not forloop.last %}, {% endif %}{% empty %}Unknown author{% endfor %}
+            </p>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty">No featured books yet. Run <code>python manage.py seed_catalog</code>.</p>
+  {% endif %}
+</section>
+
+<section>
+  <h2>Recently added</h2>
+  {% if recent_books %}
+    <ul class="book-grid">
+      {% for book in recent_books %}
+        <li class="book-card">
+          <a href="{{ book.get_absolute_url }}">
+            <h3>{{ book.title }}</h3>
+            <p class="meta">
+              {% for author in book.authors.all %}{{ author.name }}{% if not forloop.last %}, {% endif %}{% empty %}Unknown author{% endfor %}
+            </p>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty">No books yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

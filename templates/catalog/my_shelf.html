@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}My Shelf{% endblock %}
+
+{% block content %}
+<h1>My Shelf</h1>
+<p class="lede">Books you want to read, saved to your account.</p>
+
+{% if items %}
+  <ul class="book-grid">
+    {% for item in items %}
+      <li class="book-card">
+        <a href="{{ item.book.get_absolute_url }}">
+          <h2>{{ item.book.title }}</h2>
+          <p class="meta">{{ item.book.category.name }} · added {{ item.created_at|date:"M j, Y" }}</p>
+        </a>
+        <form method="post" action="{% url 'catalog:shelf_remove' item.book.id %}">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{% url 'catalog:my_shelf' %}">
+          <button type="submit" class="link-button">Remove</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="empty">Your shelf is empty. <a href="{% url 'catalog:book_list' %}">Browse books</a> and add a few.</p>
+{% endif %}
+{% endblock %}

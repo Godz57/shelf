@@ -1,0 +1,14 @@
+from io import StringIO
+
+from django.core.management import call_command
+from django.test import TestCase
+
+from catalog.models import Book
+
+
+class SeedCommandTests(TestCase):
+    def test_seed_creates_books(self):
+        out = StringIO()
+        call_command("seed_catalog", stdout=out)
+        self.assertGreaterEqual(Book.objects.count(), 5)
+        self.assertIn("Seeded", out.getvalue())
