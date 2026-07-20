@@ -21,6 +21,7 @@ htmlcov/
 *.log
 .idea/
 .vscode/
+.playwright-cli/
 
 # Keep brand assets (favicon, OG, side vines) under version control
 # static/img/ is intentional tracked content
