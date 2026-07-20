@@ -6,6 +6,24 @@ app_name = "staff"
 
 urlpatterns = [
     path("", staff_views.ManageDashboardView.as_view(), name="dashboard"),
+    path("account/", staff_views.ManageAccountView.as_view(), name="account"),
+    path(
+        "account/username/",
+        staff_views.ManageUsernameUpdateView.as_view(),
+        name="account_username",
+    ),
+    path(
+        "account/password/",
+        staff_views.ManagePasswordUpdateView.as_view(),
+        name="account_password",
+    ),
+    path("team/", staff_views.ManageTeamListView.as_view(), name="team_list"),
+    path("team/new/", staff_views.ManageTeamCreateView.as_view(), name="team_add"),
+    path(
+        "team/<int:pk>/edit/",
+        staff_views.ManageTeamEditView.as_view(),
+        name="team_edit",
+    ),
     path("books/", staff_views.ManageBookListView.as_view(), name="book_list"),
     path("books/new/", staff_views.ManageBookCreateView.as_view(), name="book_add"),
     path(

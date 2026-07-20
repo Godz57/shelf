@@ -8,14 +8,28 @@
     <p class="manage-side-label">Manage catalog</p>
     <nav class="manage-nav">
       <a href="{% url 'staff:dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}is-active{% endif %}">Overview</a>
-      <a href="{% url 'staff:book_list' %}" class="{% if 'book' in request.resolver_match.url_name %}is-active{% endif %}">Books</a>
-      <a href="{% url 'staff:author_list' %}" class="{% if 'author' in request.resolver_match.url_name %}is-active{% endif %}">Authors</a>
-      <a href="{% url 'staff:category_list' %}" class="{% if 'category' in request.resolver_match.url_name %}is-active{% endif %}">Categories</a>
-      <a href="{% url 'staff:saved_list' %}" class="{% if request.resolver_match.url_name == 'saved_list' %}is-active{% endif %}">Saved by readers</a>
+      {% if staff_access.can_manage_books %}
+        <a href="{% url 'staff:book_list' %}" class="{% if 'book' in request.resolver_match.url_name %}is-active{% endif %}">Books</a>
+      {% endif %}
+      {% if staff_access.can_manage_authors %}
+        <a href="{% url 'staff:author_list' %}" class="{% if 'author' in request.resolver_match.url_name %}is-active{% endif %}">Authors</a>
+      {% endif %}
+      {% if staff_access.can_manage_categories %}
+        <a href="{% url 'staff:category_list' %}" class="{% if 'category' in request.resolver_match.url_name %}is-active{% endif %}">Categories</a>
+      {% endif %}
+      {% if staff_access.can_view_saved %}
+        <a href="{% url 'staff:saved_list' %}" class="{% if request.resolver_match.url_name == 'saved_list' %}is-active{% endif %}">Saved by readers</a>
+      {% endif %}
+      {% if staff_access.can_manage_team %}
+        <a href="{% url 'staff:team_list' %}" class="{% if 'team' in request.resolver_match.url_name %}is-active{% endif %}">Team</a>
+      {% endif %}
+      <a href="{% url 'staff:account' %}" class="{% if 'account' in request.resolver_match.url_name %}is-active{% endif %}">My account</a>
     </nav>
     <div class="manage-side-footer">
       <a class="btn btn-outline btn-small" href="{% url 'catalog:home' %}">← Back to site</a>
-      <a class="btn btn-small" href="{% url 'staff:book_add' %}">+ Add book</a>
+      {% if staff_access.can_manage_books %}
+        <a class="btn btn-small" href="{% url 'staff:book_add' %}">+ Add book</a>
+      {% endif %}
     </div>
   </aside>
 

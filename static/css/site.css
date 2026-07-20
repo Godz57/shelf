@@ -1270,3 +1270,40 @@ code {
   border-color: #e8b4b4;
   color: #8b1e1e;
 }
+
+.manage-card-block {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.4rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 1.25rem;
+}
+
+.manage-card-block h2 {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--teal);
+}
+
+.manage-card-block .manage-form {
+  box-shadow: none;
+  border: 0;
+  padding: 0;
+  max-width: none;
+  background: transparent;
+}
+
+.manage-perm-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.75rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.manage-perm-list li {
+  font-weight: 600;
+  color: var(--ink);
+}

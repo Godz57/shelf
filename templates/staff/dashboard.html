@@ -44,22 +44,38 @@
     <h2>Quick actions</h2>
   </div>
   <div class="manage-actions">
-    <a class="manage-action-card" href="{% url 'staff:book_add' %}">
-      <strong>Add a book</strong>
-      <span>Create a new title with cover and authors</span>
+    {% if staff_access.can_manage_books %}
+      <a class="manage-action-card" href="{% url 'staff:book_add' %}">
+        <strong>Add a book</strong>
+        <span>Create a new title with cover and authors</span>
+      </a>
+      <a class="manage-action-card" href="{% url 'staff:book_list' %}">
+        <strong>Edit books</strong>
+        <span>Change details, featured flag, or delete</span>
+      </a>
+    {% endif %}
+    {% if staff_access.can_manage_authors %}
+      <a class="manage-action-card" href="{% url 'staff:author_add' %}">
+        <strong>Add an author</strong>
+        <span>Writers shown on book pages</span>
+      </a>
+    {% endif %}
+    {% if staff_access.can_manage_categories %}
+      <a class="manage-action-card" href="{% url 'staff:category_add' %}">
+        <strong>Add a category</strong>
+        <span>e.g. Theology, Devotional</span>
+      </a>
+    {% endif %}
+    <a class="manage-action-card" href="{% url 'staff:account' %}">
+      <strong>My account</strong>
+      <span>Change username or password</span>
     </a>
-    <a class="manage-action-card" href="{% url 'staff:book_list' %}">
-      <strong>Edit books</strong>
-      <span>Change details, featured flag, or delete</span>
-    </a>
-    <a class="manage-action-card" href="{% url 'staff:author_add' %}">
-      <strong>Add an author</strong>
-      <span>Writers shown on book pages</span>
-    </a>
-    <a class="manage-action-card" href="{% url 'staff:category_add' %}">
-      <strong>Add a category</strong>
-      <span>e.g. Theology, Devotional</span>
-    </a>
+    {% if staff_access.can_manage_team %}
+      <a class="manage-action-card" href="{% url 'staff:team_list' %}">
+        <strong>Team</strong>
+        <span>Add admins and set access</span>
+      </a>
+    {% endif %}
   </div>
 </section>
 

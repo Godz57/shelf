@@ -1,0 +1,61 @@
+{% extends "staff/base_staff.html" %}
+
+{% block staff_title %}Team{% endblock %}
+
+{% block staff_content %}
+<header class="page-header manage-header">
+  <div>
+    <h1>Team</h1>
+    <p class="lede">Admins who can open the manage panel. Set what each person may access.</p>
+  </div>
+  <a class="btn" href="{% url 'staff:team_add' %}">+ Add admin</a>
+</header>
+
+{% if staff_users %}
+  <div class="manage-table-wrap">
+    <table class="manage-table">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Active</th>
+          <th>Access</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in staff_users %}
+          <tr>
+            <td>
+              <strong>{{ u.username }}</strong>
+              {% if u.is_superuser %}<span class="badge">Main admin</span>{% endif %}
+              {% if u.pk == request.user.pk %}<span class="meta">(you)</span>{% endif %}
+            </td>
+            <td>{% if u.is_active %}Yes{% else %}No{% endif %}</td>
+            <td class="meta">
+              {% if u.is_superuser %}
+                Full access
+              {% else %}
+                {% with p=u.staff_profile %}
+                  {% if p.can_manage_books %}Books {% endif %}
+                  {% if p.can_manage_authors %}Authors {% endif %}
+                  {% if p.can_manage_categories %}Categories {% endif %}
+                  {% if p.can_view_saved %}Saved {% endif %}
+                  {% if p.can_manage_team %}Team {% endif %}
+                  {% if not p.can_manage_books and not p.can_manage_authors and not p.can_manage_categories and not p.can_view_saved and not p.can_manage_team %}
+                    —
+                  {% endif %}
+                {% endwith %}
+              {% endif %}
+            </td>
+            <td class="manage-row-actions">
+              <a href="{% url 'staff:team_edit' u.pk %}">Edit</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p class="empty">No staff users yet.</p>
+{% endif %}
+{% endblock %}

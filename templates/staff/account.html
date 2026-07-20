@@ -1,0 +1,58 @@
+{% extends "staff/base_staff.html" %}
+
+{% block staff_title %}My account{% endblock %}
+
+{% block staff_content %}
+<header class="page-header">
+  <h1>My account</h1>
+  <p class="lede">Change your username or password. Only you can edit this page.</p>
+</header>
+
+<section class="manage-card-block">
+  <h2>Your access</h2>
+  <ul class="manage-perm-list">
+    <li>{% if access.can_manage_books %}✓{% else %}—{% endif %} Books</li>
+    <li>{% if access.can_manage_authors %}✓{% else %}—{% endif %} Authors</li>
+    <li>{% if access.can_manage_categories %}✓{% else %}—{% endif %} Categories</li>
+    <li>{% if access.can_view_saved %}✓{% else %}—{% endif %} Saved by readers</li>
+    <li>{% if access.can_manage_team %}✓{% else %}—{% endif %} Team &amp; permissions</li>
+  </ul>
+  <p class="meta">A team admin can change these permissions (unless you are the main superuser).</p>
+</section>
+
+<section class="manage-card-block">
+  <h2>Change username</h2>
+  <form method="post" action="{% url 'staff:account_username' %}" class="manage-form" novalidate>
+    {% csrf_token %}
+    {% for field in username_form %}
+      <div class="manage-field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}<p class="help">{{ field.help_text }}</p>{% endif %}
+        {% if field.errors %}<p class="field-error">{{ field.errors|striptags }}</p>{% endif %}
+      </div>
+    {% endfor %}
+    <div class="manage-form-actions">
+      <button type="submit" class="btn">Save username</button>
+    </div>
+  </form>
+</section>
+
+<section class="manage-card-block">
+  <h2>Change password</h2>
+  <form method="post" action="{% url 'staff:account_password' %}" class="manage-form" novalidate>
+    {% csrf_token %}
+    {% for field in password_form %}
+      <div class="manage-field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}<p class="help">{{ field.help_text|safe }}</p>{% endif %}
+        {% if field.errors %}<p class="field-error">{{ field.errors|striptags }}</p>{% endif %}
+      </div>
+    {% endfor %}
+    <div class="manage-form-actions">
+      <button type="submit" class="btn">Save password</button>
+    </div>
+  </form>
+</section>
+{% endblock %}

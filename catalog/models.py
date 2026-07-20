@@ -122,3 +122,45 @@ class ReadingListItem(models.Model):
 
     def __str__(self) -> str:
         return f"{self.user} → {self.book}"
+
+
+class StaffProfile(models.Model):
+    """What each staff admin may do in the /manage/ panel."""
+
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="staff_profile",
+    )
+    can_manage_books = models.BooleanField(
+        "Books",
+        default=True,
+        help_text="Add, edit, and delete books.",
+    )
+    can_manage_authors = models.BooleanField(
+        "Authors",
+        default=True,
+        help_text="Add, edit, and delete authors.",
+    )
+    can_manage_categories = models.BooleanField(
+        "Categories",
+        default=True,
+        help_text="Add, edit, and delete categories.",
+    )
+    can_view_saved = models.BooleanField(
+        "Saved by readers",
+        default=True,
+        help_text="See which books readers saved.",
+    )
+    can_manage_team = models.BooleanField(
+        "Team & permissions",
+        default=False,
+        help_text="Add other admins and change what they can access.",
+    )
+
+    class Meta:
+        verbose_name = "staff access"
+        verbose_name_plural = "staff access"
+
+    def __str__(self) -> str:
+        return f"Access for {self.user.username}"

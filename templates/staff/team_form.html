@@ -1,0 +1,37 @@
+{% extends "staff/base_staff.html" %}
+
+{% block staff_title %}{{ page_title }}{% endblock %}
+
+{% block staff_content %}
+<header class="page-header">
+  <h1>{{ page_title }}</h1>
+  <p class="lede">Choose a username, password, and which areas this admin can use.</p>
+</header>
+
+{% if edit_user and edit_user.is_superuser %}
+  <p class="message message-info">This is the main admin account. Access is always full; you can still rename them or set a new password.</p>
+{% endif %}
+
+<form method="post" class="manage-form" novalidate>
+  {% csrf_token %}
+  {% for field in form %}
+    <div class="manage-field {% if field.field.widget.input_type == 'checkbox' %}is-check{% endif %}">
+      {% if field.field.widget.input_type == 'checkbox' %}
+        <label class="manage-check">
+          {{ field }}
+          <span>{{ field.label }}</span>
+        </label>
+      {% else %}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+      {% endif %}
+      {% if field.help_text %}<p class="help">{{ field.help_text }}</p>{% endif %}
+      {% if field.errors %}<p class="field-error">{{ field.errors|striptags }}</p>{% endif %}
+    </div>
+  {% endfor %}
+  <div class="manage-form-actions">
+    <button type="submit" class="btn">{{ submit_label }}</button>
+    <a class="btn btn-outline" href="{% url 'staff:team_list' %}">Cancel</a>
+  </div>
+</form>
+{% endblock %}
