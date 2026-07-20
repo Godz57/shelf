@@ -1,0 +1,205 @@
+/* Your Shelter — Django admin skin (sage / teal) */
+
+:root {
+  --shelter-teal: #1e4d42;
+  --shelter-teal-mid: #2d6a5a;
+  --shelter-mint: #c5ddd0;
+  --shelter-sage: #9fb8a8;
+  --shelter-soft: #e8f2ed;
+  --shelter-bg: #f7f4ef;
+  --shelter-ink: #2a3330;
+  --shelter-line: #e4ddd2;
+}
+
+/* Header */
+#header {
+  background: var(--shelter-teal) !important;
+  color: #fff !important;
+  border-bottom: 3px solid var(--shelter-sage);
+}
+
+#header a:link,
+#header a:visited,
+#branding h1,
+#branding h1 a:link,
+#branding h1 a:visited,
+#user-tools a {
+  color: #fff !important;
+}
+
+#user-tools a:hover {
+  color: var(--shelter-mint) !important;
+}
+
+.shelter-admin-brand a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  text-decoration: none !important;
+}
+
+.shelter-admin-mark {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.shelter-admin-sub {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.8;
+  background: rgba(255, 255, 255, 0.14);
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+}
+
+/* Body / modules */
+body {
+  background: var(--shelter-bg) !important;
+}
+
+#content h1 {
+  color: var(--shelter-teal);
+  font-weight: 600;
+}
+
+.module h2,
+.module caption,
+inline-group h2 {
+  background: var(--shelter-teal-mid) !important;
+  color: #fff !important;
+}
+
+.module caption a.section:link,
+.module caption a.section:visited {
+  color: #fff !important;
+}
+
+div.breadcrumbs {
+  background: var(--shelter-teal-mid) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+div.breadcrumbs a {
+  color: #fff !important;
+}
+
+/* Buttons */
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input,
+a.button {
+  background: var(--shelter-teal) !important;
+  border-color: var(--shelter-teal) !important;
+  border-radius: 8px !important;
+}
+
+.button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.submit-row input:hover,
+a.button:hover {
+  background: var(--shelter-teal-mid) !important;
+}
+
+.button.default,
+input[type="submit"].default,
+.submit-row input.default {
+  background: var(--shelter-teal) !important;
+}
+
+/* Selected rows / filters */
+#changelist-filter h2 {
+  background: var(--shelter-teal) !important;
+}
+
+#changelist-filter li.selected a {
+  color: var(--shelter-teal) !important;
+  font-weight: 700;
+}
+
+/* Cover previews in list + change form */
+.shelter-cover-thumb {
+  width: 40px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(30, 77, 66, 0.2);
+  vertical-align: middle;
+  background: var(--shelter-soft);
+}
+
+.shelter-cover-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 60px;
+  border-radius: 4px;
+  background: linear-gradient(145deg, var(--shelter-mint), var(--shelter-sage));
+  color: var(--shelter-teal);
+  font-weight: 700;
+  font-family: Georgia, serif;
+  font-size: 1.1rem;
+  vertical-align: middle;
+}
+
+.shelter-cover-preview {
+  max-width: 180px;
+  max-height: 260px;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(30, 77, 66, 0.18);
+  margin-top: 0.5rem;
+  display: block;
+  background: var(--shelter-soft);
+}
+
+/* Object tools */
+.object-tools a:link,
+.object-tools a:visited {
+  background: var(--shelter-teal-mid) !important;
+  border-radius: 8px !important;
+}
+
+.object-tools a:hover {
+  background: var(--shelter-teal) !important;
+}
+
+/* Links in content */
+a:link,
+a:visited {
+  color: var(--shelter-teal-mid);
+}
+
+a:hover {
+  color: var(--shelter-teal);
+}
+
+/* Login page polish */
+.login #header {
+  background: var(--shelter-teal) !important;
+}
+
+.login #container {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--shelter-line);
+}
+
+/* Results table */
+#result_list td,
+#result_list th {
+  vertical-align: middle;
+}
+
+#result_list tbody tr:hover {
+  background: var(--shelter-soft) !important;
+}

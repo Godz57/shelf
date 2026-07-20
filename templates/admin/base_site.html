@@ -1,0 +1,20 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'admin/css/shelter_admin.css' %}">
+{% endblock %}
+
+{% block branding %}
+  <div id="site-name" class="shelter-admin-brand">
+    <a href="{% url 'admin:index' %}">
+      <span class="shelter-admin-mark">Your Shelter</span>
+      <span class="shelter-admin-sub">Admin</span>
+    </a>
+  </div>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

@@ -11,6 +11,8 @@ class Author(models.Model):
 
     class Meta:
         ordering = ["name"]
+        verbose_name = "author"
+        verbose_name_plural = "authors"
 
     def __str__(self) -> str:
         return self.name
@@ -38,8 +40,14 @@ class Book(models.Model):
     description = models.TextField()
     isbn = models.CharField(max_length=20, blank=True)
     published_date = models.DateField(null=True, blank=True)
-    cover_url = models.URLField(blank=True)
-    is_featured = models.BooleanField(default=False)
+    cover_url = models.URLField(
+        blank=True,
+        help_text="Public image URL used as the book cover on the site.",
+    )
+    is_featured = models.BooleanField(
+        default=False,
+        help_text="Featured books appear on the home page.",
+    )
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, related_name="books"
     )
@@ -48,6 +56,8 @@ class Book(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+        verbose_name = "book"
+        verbose_name_plural = "books"
 
     def __str__(self) -> str:
         return self.title
@@ -70,6 +80,8 @@ class ReadingListItem(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+        verbose_name = "Your Shelter item"
+        verbose_name_plural = "Your Shelter items"
         constraints = [
             models.UniqueConstraint(
                 fields=["user", "book"], name="unique_user_book_shelf"
