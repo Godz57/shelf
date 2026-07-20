@@ -5,18 +5,66 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Shelter{% endblock %} · Gospel Publishing Catalog</title>
-  <meta name="description" content="Shelter — a Django portfolio catalog of gospel-centered books with search, accounts, and a JSON API.">
+  <meta name="description" content="{% block meta_description %}Shelter — a Django portfolio catalog of gospel-centered books with search, accounts, and a JSON API.{% endblock %}">
+  <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{% static 'img/favicon.svg' %}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Shelter">
+  <meta property="og:title" content="{% block og_title %}Shelter · Gospel Publishing Catalog{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}A Django portfolio catalog: books, staff manage panel, auth, search, and a read-only JSON API.{% endblock %}">
+  <meta property="og:image" content="{% block og_image %}{% static 'img/og-default.svg' %}{% endblock %}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{% block twitter_title %}Shelter · Gospel Publishing Catalog{% endblock %}">
+  <meta name="twitter:description" content="{% block twitter_description %}Django portfolio catalog with admin tooling, reading lists, and API.{% endblock %}">
   <link rel="stylesheet" href="{% static 'css/site.css' %}">
 </head>
 <body>
   <div id="read-progress" class="read-progress" aria-hidden="true"></div>
 
+  {# Gospel atmosphere: vines always present — soft behind content on mobile, side columns on wide screens #}
+  <div class="side-ambient" aria-hidden="true">
+    <div class="side-rays"></div>
+    <div class="side-column side-column-left">
+      <div class="side-vine-stack">
+        <img class="side-vine-img side-vine-cartoon side-vine-s1" src="{% static 'img/side-vine.webp' %}" alt="" width="360" height="360" decoding="async">
+        <img class="side-vine-img side-vine-cartoon side-vine-s2" src="{% static 'img/side-vine.webp' %}" alt="" width="360" height="360" decoding="async">
+        <img class="side-vine-img side-vine-cartoon side-vine-s3" src="{% static 'img/side-vine.webp' %}" alt="" width="360" height="360" decoding="async">
+        <img class="side-vine-img side-vine-cartoon side-vine-s4" src="{% static 'img/side-vine.webp' %}" alt="" width="360" height="360" decoding="async">
+        <img class="side-vine-img side-vine-cartoon side-vine-s5" src="{% static 'img/side-vine.webp' %}" alt="" width="360" height="360" decoding="async">
+      </div>
+      <p class="side-verse">The Lord is my shelter</p>
+    </div>
+    <div class="side-column side-column-right">
+      <div class="side-vine-stack side-vine-stack-mirror">
+        <img class="side-vine-img side-vine-cartoon side-vine-s1" src="{% static 'img/side-vine.webp' %}" alt="" width="360" height="360" decoding="async">
+        <img class="side-vine-img side-vine-cartoon side-vine-s2" src="{% static 'img/side-vine.webp' %}" alt="" width="360" height="360" decoding="async">
+        <img class="side-vine-img side-vine-cartoon side-vine-s3" src="{% static 'img/side-vine.webp' %}" alt="" width="360" height="360" decoding="async">
+        <img class="side-vine-img side-vine-cartoon side-vine-s4" src="{% static 'img/side-vine.webp' %}" alt="" width="360" height="360" decoding="async">
+        <img class="side-vine-img side-vine-cartoon side-vine-s5" src="{% static 'img/side-vine.webp' %}" alt="" width="360" height="360" decoding="async">
+      </div>
+      <p class="side-verse">Come to me, and rest</p>
+    </div>
+  </div>
+
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="{% url 'catalog:home' %}" title="Shelter">Shelter<span>.</span></a>
-      <nav class="nav" aria-label="Main">
+      <a class="brand" href="{% url 'catalog:home' %}" title="Shelter — Home">Shelter<span>.</span></a>
+      <button
+        type="button"
+        class="nav-toggle"
+        id="nav-toggle"
+        aria-controls="site-nav"
+        aria-expanded="false"
+        aria-label="Open menu"
+      >
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
         <a href="{% url 'catalog:home' %}">Home</a>
         <a href="{% url 'catalog:book_list' %}">Books</a>
+        <a href="{% url 'catalog:about' %}">About</a>
         {% if user.is_authenticated %}
           <a href="{% url 'catalog:my_shelf' %}">Your Shelter</a>
           <form class="inline-form" method="post" action="{% url 'logout' %}">
@@ -43,15 +91,58 @@
   </main>
 
   <footer class="site-footer">
+    {# Organic vine layer behind copy — mobile + desktop #}
+    <div class="footer-vines" aria-hidden="true">
+      <img
+        class="footer-vine footer-vine-cartoon footer-vine-c1"
+        src="{% static 'img/side-vine.webp' %}"
+        alt=""
+        width="360"
+        height="360"
+        decoding="async"
+        loading="lazy"
+      >
+      <img
+        class="footer-vine footer-vine-ivy footer-vine-i1"
+        src="{% static 'img/side-vine-ivy.png' %}"
+        alt=""
+        width="280"
+        height="560"
+        decoding="async"
+        loading="lazy"
+      >
+      <img
+        class="footer-vine footer-vine-ivy footer-vine-i2"
+        src="{% static 'img/side-vine-ivy.png' %}"
+        alt=""
+        width="220"
+        height="440"
+        decoding="async"
+        loading="lazy"
+      >
+      <img
+        class="footer-vine footer-vine-cartoon footer-vine-c2"
+        src="{% static 'img/side-vine.webp' %}"
+        alt=""
+        width="360"
+        height="360"
+        decoding="async"
+        loading="lazy"
+      >
+    </div>
     <div class="container footer-inner">
       <div>
-        <p class="footer-brand">Shelter.</p>
+        <p class="footer-brand"><a href="{% url 'catalog:home' %}" class="footer-brand-link">Shelter.</a></p>
         <p>Portfolio Django catalog · fictional titles only.</p>
+        <p class="footer-meta">© {% now "Y" %} · MIT License</p>
       </div>
-      <div>
+      <div class="footer-links">
         <p>
-          <a href="{% url 'catalog:book_list' %}">Browse</a>
-          · <a href="/api/books/">JSON API</a>
+          <a href="{% url 'catalog:home' %}">Home</a>
+          · <a href="{% url 'catalog:book_list' %}">Books</a>
+          · <a href="{% url 'catalog:about' %}">About</a>
+          · <a href="/api/books/">API</a>
+          · <a href="https://github.com/Godz57/shelf" target="_blank" rel="noopener noreferrer">GitHub</a>
         </p>
         <p id="stack-easter" class="stack-easter" title="…">Not affiliated with any publisher.</p>
       </div>

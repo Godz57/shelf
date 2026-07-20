@@ -133,3 +133,23 @@ def shelf_remove(request, book_id):
 def page_not_found(request, exception):
     """Friendly 404 for public site (handler404)."""
     return render(request, "404.html", status=404)
+
+
+def server_error(request):
+    """Friendly 500 for public site (handler500)."""
+    return render(request, "500.html", status=500)
+
+
+def server_error_demo(request):
+    """Only used in tests / local smoke of the 500 template."""
+    return server_error(request)
+
+
+def about(request):
+    return render(request, "catalog/about.html")
+
+
+def health(request):
+    from django.http import JsonResponse
+
+    return JsonResponse({"status": "ok"})

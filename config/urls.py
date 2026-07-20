@@ -20,3 +20,4 @@ urlpatterns = [
 ]
 
 handler404 = "catalog.views.page_not_found"
+handler500 = "catalog.views.server_error"

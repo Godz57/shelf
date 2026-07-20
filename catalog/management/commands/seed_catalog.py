@@ -24,6 +24,14 @@ COVERS = {
     "shepherds-among-us": _cover("photo-1529070538774-1843cb3265df"),  # gathering
     "alpha-study-notes": _cover("photo-1481627834876-b7833e8f5570"),  # library books
     "across-the-river": _cover("photo-1501785888041-af3ef285b470"),  # river landscape
+    "bread-for-the-week": _cover("photo-1509440159596-0249088772ff"),  # bread
+    "small-prayers": _cover("photo-1490730141103-6cac27aaab94"),  # sky light
+    "field-notes-on-hope": _cover("photo-1441974231531-c6227db76b6e"),  # forest path
+    "the-long-obedience": _cover("photo-1469474968028-56623f02e42e"),  # nature path
+    "neighbor-love": _cover("photo-1469571486292-0ba58a3f068b"),  # community
+    "songs-at-midnight": _cover("photo-1419242902214-272b3f66ee7a"),  # night sky
+    "wisdom-for-work": _cover("photo-1497215728101-856f4ea42174"),  # desk work
+    "a-quiet-yes": _cover("photo-1470071459604-3b5ec3a7fe05"),  # fog hills
 }
 
 
@@ -60,6 +68,16 @@ class Command(BaseCommand):
                 "jonah-west",
                 "Jonah West",
                 "Biographer of lesser-known missionaries.",
+            ),
+            (
+                "ruth-hale",
+                "Ruth Hale",
+                "Writer on prayer, vocation, and ordinary faithfulness.",
+            ),
+            (
+                "caleb-orin",
+                "Caleb Orin",
+                "Former campus minister; now writes for workers and students.",
             ),
         ]
         for slug, name, bio in authors_data:
@@ -205,6 +223,114 @@ class Command(BaseCommand):
                 "is_featured": True,
                 "published_date": date(2024, 5, 22),
                 "isbn": "9780000000010",
+            },
+            {
+                "title": "Bread for the Week",
+                "slug": "bread-for-the-week",
+                "subtitle": "Seven gospel meditations",
+                "description": (
+                    "A week of short readings that return to Christ as daily bread — "
+                    "for people who open a book between tasks."
+                ),
+                "category": "devotional",
+                "authors": ["ruth-hale"],
+                "is_featured": True,
+                "published_date": date(2024, 9, 3),
+                "isbn": "9780000000011",
+            },
+            {
+                "title": "Small Prayers",
+                "slug": "small-prayers",
+                "subtitle": "Words when you have few",
+                "description": (
+                    "Honest prayers for anxiety, gratitude, grief, and ordinary mornings."
+                ),
+                "category": "devotional",
+                "authors": ["ruth-hale", "mira-cole"],
+                "is_featured": False,
+                "published_date": date(2023, 4, 18),
+                "isbn": "9780000000012",
+            },
+            {
+                "title": "Field Notes on Hope",
+                "slug": "field-notes-on-hope",
+                "subtitle": "Learning to wait well",
+                "description": (
+                    "Essays that refuse cheap optimism and point to a living hope."
+                ),
+                "category": "theology",
+                "authors": ["caleb-orin"],
+                "is_featured": True,
+                "published_date": date(2022, 11, 8),
+                "isbn": "9780000000013",
+            },
+            {
+                "title": "The Long Obedience",
+                "slug": "the-long-obedience",
+                "subtitle": "Discipleship without shortcuts",
+                "description": (
+                    "A pastoral call to steady growth in a culture of instant results."
+                ),
+                "category": "theology",
+                "authors": ["elena-marks", "caleb-orin"],
+                "is_featured": False,
+                "published_date": date(2021, 2, 14),
+                "isbn": "9780000000014",
+            },
+            {
+                "title": "Neighbor Love",
+                "slug": "neighbor-love",
+                "subtitle": "Mercy on your street",
+                "description": (
+                    "Stories and practices for churches that want to love the people "
+                    "they actually live beside."
+                ),
+                "category": "church",
+                "authors": ["samuel-reed", "ruth-hale"],
+                "is_featured": False,
+                "published_date": date(2020, 10, 2),
+                "isbn": "9780000000015",
+            },
+            {
+                "title": "Songs at Midnight",
+                "slug": "songs-at-midnight",
+                "subtitle": "Faith when joy is thin",
+                "description": (
+                    "A biography-shaped meditation on lament, psalms, and endurance."
+                ),
+                "category": "biography",
+                "authors": ["jonah-west", "elena-marks"],
+                "is_featured": False,
+                "published_date": date(2019, 7, 30),
+                "isbn": "9780000000016",
+            },
+            {
+                "title": "Wisdom for Work",
+                "slug": "wisdom-for-work",
+                "subtitle": "Calling in ordinary jobs",
+                "description": (
+                    "For students and workers who want their weekday labor connected "
+                    "to the gospel without slogans."
+                ),
+                "category": "theology",
+                "authors": ["caleb-orin"],
+                "is_featured": True,
+                "published_date": date(2024, 1, 9),
+                "isbn": "9780000000017",
+            },
+            {
+                "title": "A Quiet Yes",
+                "slug": "a-quiet-yes",
+                "subtitle": "Saying yes to small faithfulness",
+                "description": (
+                    "Devotional essays for people who will never trend — and still "
+                    "want to follow Christ."
+                ),
+                "category": "devotional",
+                "authors": ["mira-cole", "ruth-hale"],
+                "is_featured": False,
+                "published_date": date(2025, 3, 1),
+                "isbn": "9780000000018",
             },
         ]
 

@@ -95,22 +95,30 @@
     if (!brand) return;
     let clicks = 0;
     let timer = null;
+    // Always point to home (easter egg must not break navigation)
+    brand.setAttribute("href", "/");
     try {
       if (localStorage.getItem(QUIET_KEY) === "1") applyQuietRoom(true, false);
     } catch (_) {}
 
     brand.addEventListener("click", (e) => {
-      // Allow normal navigation on first intentional click path, but count multi-clicks
       clicks += 1;
       clearTimeout(timer);
       timer = setTimeout(() => {
         clicks = 0;
       }, 900);
+      // Only the 5th rapid click toggles quiet room and stays on page
       if (clicks >= 5) {
         e.preventDefault();
         clicks = 0;
         const next = !document.documentElement.classList.contains("quiet-room");
         applyQuietRoom(next, true);
+        return;
+      }
+      // Single / few clicks → always go home (even if already on /)
+      if (clicks === 1) {
+        // Let the browser follow href="/" normally
+        return;
       }
     });
   }
@@ -470,6 +478,37 @@
     );
   }
 
+  /* —— Mobile nav —— */
+  function bindMobileNav() {
+    const toggle = document.getElementById("nav-toggle");
+    const nav = document.getElementById("site-nav");
+    if (!toggle || !nav) return;
+
+    const setOpen = (open) => {
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      nav.classList.toggle("is-open", open);
+      document.body.classList.toggle("nav-open", open);
+    };
+
+    toggle.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") !== "true";
+      setOpen(open);
+    });
+
+    nav.querySelectorAll("a, button").forEach((el) => {
+      el.addEventListener("click", () => setOpen(false));
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setOpen(false);
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.matchMedia("(min-width: 721px)").matches) setOpen(false);
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     promoteMessages();
     bindShelfForms();
@@ -482,6 +521,7 @@
     bindReadingMode();
     bindKeys();
     bindStackModal();
+    bindMobileNav();
     consoleHello();
   });
 })();

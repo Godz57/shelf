@@ -84,3 +84,21 @@ class CatalogViewTests(TestCase):
         self.assertEqual(res.status_code, 404)
         self.assertContains(res, "wandered off the shelf", status_code=404)
         self.assertContains(res, "Find me a book", status_code=404)
+
+    def test_about_page(self):
+        res = self.client.get(reverse("catalog:about"))
+        self.assertEqual(res.status_code, 200)
+        self.assertContains(res, "About Shelter")
+        self.assertContains(res, "Django")
+        self.assertContains(res, "Not affiliated")
+
+    def test_health_ok(self):
+        res = self.client.get(reverse("catalog:health"))
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.json()["status"], "ok")
+
+    @override_settings(DEBUG=False)
+    def test_custom_500_page(self):
+        res = self.client.get(reverse("catalog:server_error_demo"))
+        self.assertEqual(res.status_code, 500)
+        self.assertContains(res, "Something went wrong", status_code=500)

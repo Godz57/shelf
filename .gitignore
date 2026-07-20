@@ -22,6 +22,5 @@ htmlcov/
 .idea/
 .vscode/
 
-
-static/img/
-.env*
+# Keep brand assets (favicon, OG, side vines) under version control
+# static/img/ is intentional tracked content

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Home{% endblock %}
 
@@ -22,6 +23,25 @@
     <div class="orb" data-letter="M">M</div>
     <div class="orb" data-letter="S">S</div>
   </div>
+  {# Watercolor ivy ornaments (hero style — not mixed with side cartoon vines) #}
+  <img
+    class="hero-ivy hero-ivy-main"
+    src="{% static 'img/side-vine-ivy.png' %}"
+    alt=""
+    width="220"
+    height="440"
+    decoding="async"
+    aria-hidden="true"
+  >
+  <img
+    class="hero-ivy hero-ivy-accent"
+    src="{% static 'img/side-vine-ivy.png' %}"
+    alt=""
+    width="160"
+    height="320"
+    decoding="async"
+    aria-hidden="true"
+  >
 </section>
 
 <section class="tonight-pick" aria-labelledby="tonight-heading">
@@ -35,6 +55,16 @@
   <div id="tonight-pick-stage" class="tonight-pick-stage">
     <p class="tonight-placeholder">Press the button to reveal a cover.</p>
   </div>
+  <img
+    class="tonight-ivy"
+    src="{% static 'img/side-vine-ivy.png' %}"
+    alt=""
+    width="140"
+    height="280"
+    decoding="async"
+    loading="lazy"
+    aria-hidden="true"
+  >
 </section>
 
 <div class="home-layout">
@@ -50,7 +80,12 @@
         {% endfor %}
       </ul>
     {% else %}
-      <p class="empty">No featured books yet. Run <code>python manage.py seed_catalog</code>.</p>
+      <div class="empty-state">
+        <p class="empty-state-title">No featured books yet</p>
+        <p class="empty-state-lede">Seed the catalog to fill this shelf for demos and screenshots.</p>
+        <p class="empty"><code>python manage.py seed_catalog</code></p>
+        <a class="btn btn-outline" href="{% url 'catalog:about' %}">About this project</a>
+      </div>
     {% endif %}
 
     <div class="section-head">
@@ -63,7 +98,11 @@
         {% endfor %}
       </ul>
     {% else %}
-      <p class="empty">No books yet.</p>
+      <div class="empty-state">
+        <p class="empty-state-title">The catalog is empty</p>
+        <p class="empty-state-lede">Once books are added, recent titles will appear here.</p>
+        <a class="btn" href="{% url 'catalog:book_list' %}">Browse books</a>
+      </div>
     {% endif %}
   </div>
 
@@ -78,6 +117,16 @@
     </ul>
 
     <div class="side-cta">
+      <img
+        class="side-cta-ivy"
+        src="{% static 'img/side-vine-ivy.png' %}"
+        alt=""
+        width="120"
+        height="240"
+        decoding="async"
+        loading="lazy"
+        aria-hidden="true"
+      >
       <h3>Your Shelter</h3>
       <p>Sign in to save books you want to read.</p>
       {% if user.is_authenticated %}

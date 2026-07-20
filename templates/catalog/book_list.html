@@ -1,9 +1,19 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Books{% endblock %}
 
 {% block content %}
-<header class="page-header">
+<header class="page-header page-header-ivy">
+  <img
+    class="page-header-ivy-img"
+    src="{% static 'img/side-vine-ivy.png' %}"
+    alt=""
+    width="140"
+    height="280"
+    decoding="async"
+    aria-hidden="true"
+  >
   <h1>Books</h1>
   <p class="lede">Search the catalog, filter by category, and open any title for details. Typing filters live.</p>
 </header>
@@ -42,9 +52,11 @@
   {% endfor %}
 </ul>
 
-<p class="empty" id="book-grid-empty" {% if page_obj.object_list %}hidden{% endif %}>
-  No books matched your filters. <a href="{% url 'catalog:book_list' %}">Clear filters</a>.
-</p>
+<div class="empty-state" id="book-grid-empty" {% if page_obj.object_list %}hidden{% endif %}>
+  <p class="empty-state-title">No books matched</p>
+  <p class="empty-state-lede">Try a shorter search, another category, or clear filters to see the full catalog.</p>
+  <a class="btn btn-outline" href="{% url 'catalog:book_list' %}">Clear filters</a>
+</div>
 
 {% if page_obj.has_other_pages %}
   <nav class="pagination" aria-label="Pagination" id="book-pagination">

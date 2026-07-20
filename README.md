@@ -6,19 +6,25 @@ A small **gospel-publishing catalog** built with **Django** for portfolio use.
 
 > **Disclaimer:** Fictional titles and authors only. **Not affiliated with Crossway** or any publisher. Built as a learning / portfolio project for a Web Developer (Django) candidacy.
 
+**Live:** [https://shelter-phi.vercel.app](https://shelter-phi.vercel.app)  
+**Source:** [github.com/Godz57/shelf](https://github.com/Godz57/shelf)
+
 ## Features
 
 - Book catalog with authors, categories, featured flags, and cover images
-- Public home, book list, book detail, author detail
+- Public home, book list, book detail, author detail, **About**
 - Search (title / subtitle / description / author), category filter, sort
-- **Site-styled staff manage panel** at `/manage/` (add / edit / delete books, authors, categories)
-- `/admin/` redirects to `/manage/` (legacy Django Admin UI not exposed)
+- Live search on `/books/` (API-backed)
+- **Site-styled staff manage panel** at `/manage/` (CRUD + team permissions)
+- `/admin/` redirects to `/manage/`
 - Sign up / log in / log out
 - **Your Shelter** personal reading list (add / remove)
-- Read-only JSON API: `GET /api/books/`, `GET /api/books/<slug>/`
+- Read-only JSON API: `GET /api/books/`, `GET /api/books/<slug>/`, `GET /api/books/pick/`
+- Health check: `GET /health/`
 - Seed command with sample data and cover URLs
-- Postgres-ready settings, WhiteNoise static files, Gunicorn `Procfile`
-- Automated tests (`python manage.py test`)
+- Favicon, Open Graph tags, mobile nav, custom 404/500
+- Postgres-ready settings, WhiteNoise static files, security headers in production
+- Automated tests + GitHub Actions CI
 
 ## Stack
 
@@ -28,9 +34,33 @@ A small **gospel-publishing catalog** built with **Django** for portfolio use.
 | Framework | Django 5.2 |
 | API | Django REST Framework |
 | DB (dev) | SQLite |
-| DB (prod) | PostgreSQL via `DATABASE_URL` |
+| DB (prod) | PostgreSQL via `DATABASE_URL` (Neon) |
 | Static | WhiteNoise |
-| Server | Gunicorn |
+| Hosting | Vercel |
+
+## Architecture (short)
+
+```
+config/          # settings, root URLs, WSGI
+catalog/         # models, public views, /manage/, API, seed, tests
+templates/       # base + catalog + registration + staff
+static/          # css, js, brand images
+```
+
+**Domain:** `Author`, `Category`, `Book`, `ReadingListItem`, `StaffProfile`  
+**Public site:** server-rendered templates  
+**Staff:** site-styled CRUD at `/manage/` with per-section permissions  
+**API:** read-only DRF viewset for books
+
+## Screenshots
+
+See [docs/screenshots/README.md](docs/screenshots/README.md) for capture guide.
+
+Suggested set for portfolios:
+
+1. Home (hero + featured)
+2. Books with search
+3. Staff manage dashboard
 
 ## Local setup
 
@@ -54,20 +84,16 @@ Open http://127.0.0.1:8000/
 python manage.py test
 ```
 
+CI runs the same suite on every push/PR to `main` (GitHub Actions).
+
 ## API examples
 
 ```bash
 curl http://127.0.0.1:8000/api/books/
 curl http://127.0.0.1:8000/api/books/grace-and-truth/
-```
-
-## Project layout
-
-```
-config/          # settings, root URLs, WSGI
-catalog/         # models, public views, /manage/ staff panel, API, seed, tests
-templates/       # base + catalog + registration templates
-static/css/      # site styles
+curl "http://127.0.0.1:8000/api/books/?q=grace"
+curl http://127.0.0.1:8000/api/books/pick/
+curl http://127.0.0.1:8000/health/
 ```
 
 ## Deploy (Vercel)
@@ -76,38 +102,25 @@ Django is detected via `manage.py`. Static files are collected automatically; `b
 
 ### 1. Postgres (required)
 
-Vercel has no durable disk — use **Neon**, **Vercel Postgres**, or **Supabase**. Copy the connection string as `DATABASE_URL`.
+Vercel has no durable disk — use **Neon**, **Vercel Postgres**, or **Supabase**. Set `DATABASE_URL`.
 
-### 2. Environment variables (Vercel project)
+### 2. Environment variables
 
 | Variable | Value |
 |----------|--------|
 | `DJANGO_SECRET_KEY` | long random string |
 | `DJANGO_DEBUG` | `0` |
 | `DATABASE_URL` | `postgres://…` |
-| `DJANGO_SUPERUSER_USERNAME` | `admin` (optional, default `admin`) |
-| `DJANGO_SUPERUSER_PASSWORD` | set a real password in production |
+| `DJANGO_SUPERUSER_USERNAME` | optional |
+| `DJANGO_SUPERUSER_PASSWORD` | set in production |
 
-`VERCEL_URL` / hosts are handled in settings for `.vercel.app`.
+See `.env.example` for the full list.
 
-### 3. CLI
-
-```bash
-npm i -g vercel
-cd shelf
-vercel link
-vercel env add DJANGO_SECRET_KEY
-vercel env add DATABASE_URL
-vercel env add DJANGO_DEBUG
-vercel --prod
-```
-
-Or connect the GitHub repo `Godz57/shelf` in the Vercel dashboard (root = repo root).
-
-### 4. After deploy
+### 3. After deploy
 
 - Public site: `https://<project>.vercel.app/`
-- Staff login: same **Log in** → user `admin` (lands on `/manage/`)
+- Staff: Log in as staff user → `/manage/`
+- About: `/about/`
 
 ## Why this project
 

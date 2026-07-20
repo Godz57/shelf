@@ -1,9 +1,19 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Your Shelter{% endblock %}
 
 {% block content %}
-<header class="page-header">
+<header class="page-header page-header-ivy">
+  <img
+    class="page-header-ivy-img"
+    src="{% static 'img/side-vine-ivy.png' %}"
+    alt=""
+    width="140"
+    height="280"
+    decoding="async"
+    aria-hidden="true"
+  >
   <h1>Your Shelter</h1>
   <p class="lede">Books you want to read, saved to your account.</p>
 </header>
@@ -46,6 +56,10 @@
     {% endfor %}
   </ul>
 {% else %}
-  <p class="empty">Your shelter is empty. <a href="{% url 'catalog:book_list' %}">Browse books</a> and add a few.</p>
+  <div class="empty-state">
+    <p class="empty-state-title">Your shelter is empty</p>
+    <p class="empty-state-lede">Save books you want to read — they stay private to your account.</p>
+    <a class="btn" href="{% url 'catalog:book_list' %}">Browse books</a>
+  </div>
 {% endif %}
 {% endblock %}

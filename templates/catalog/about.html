@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About{% endblock %}
+{% block meta_description %}About Shelter — a Django portfolio catalog demonstrating models, admin tooling, auth, search, and a JSON API.{% endblock %}
+
+{% block content %}
+<article class="about-page">
+  <header class="page-header page-header-ivy">
+    <img
+      class="page-header-ivy-img"
+      src="{% static 'img/side-vine-ivy.png' %}"
+      alt=""
+      width="140"
+      height="280"
+      decoding="async"
+      aria-hidden="true"
+    >
+    <h1>About Shelter</h1>
+    <p class="lede">
+      A quiet gospel-publishing catalog built to show real Django craft —
+      not a clone of any publisher, and not a claim of years of production tenure.
+    </p>
+  </header>
+
+  <div class="about-grid">
+    <section class="about-card">
+      <h2>What it is</h2>
+      <p>
+        Shelter is a server-rendered Django app: browse books by author and category,
+        search and sort the catalog, sign up to keep a private reading list
+        (<strong>Your Shelter</strong>), and manage content through a site-styled
+        staff panel at <code>/manage/</code>. A thin read-only JSON API mirrors the catalog.
+      </p>
+    </section>
+
+    <section class="about-card">
+      <h2>What it proves</h2>
+      <ul class="about-list">
+        <li>Models, migrations, and admin-friendly labeling</li>
+        <li>Templates, forms, auth, and permissions</li>
+        <li>Search / filter / pagination</li>
+        <li>DRF list + detail endpoints</li>
+        <li>Postgres-ready settings, static files, automated tests</li>
+        <li>Deploy pattern for serverless + managed Postgres</li>
+      </ul>
+    </section>
+
+    <section class="about-card">
+      <h2>Stack</h2>
+      <ul class="about-list">
+        <li><strong>Python</strong> 3.12+ · <strong>Django</strong> 5.2</li>
+        <li><strong>Django REST Framework</strong> (read-only API)</li>
+        <li><strong>SQLite</strong> locally · <strong>Postgres</strong> (Neon) in production</li>
+        <li><strong>WhiteNoise</strong> · <strong>Vercel</strong></li>
+      </ul>
+    </section>
+
+    <section class="about-card">
+      <h2>What it is not</h2>
+      <p>
+        Fictional titles and authors only.
+        <strong>Not affiliated with Crossway</strong> or any publisher.
+        No payments, cart, or real product inventory — YAGNI for a portfolio catalog.
+      </p>
+    </section>
+  </div>
+
+  <div class="about-actions">
+    <a class="btn" href="{% url 'catalog:book_list' %}">Browse books</a>
+    <a class="btn btn-outline" href="https://github.com/Godz57/shelf" target="_blank" rel="noopener noreferrer">View source on GitHub</a>
+    <a class="btn btn-outline" href="/api/books/">JSON API</a>
+  </div>
+</article>
+{% endblock %}

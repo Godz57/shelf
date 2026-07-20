@@ -45,12 +45,398 @@ body {
   flex-direction: column;
   font-family: var(--font);
   color: var(--ink);
+  /* Morning light / open window + soft sage field */
   background:
+    /* god-ray wash left (dawn) */
+    linear-gradient(
+      105deg,
+      rgba(255, 244, 220, 0.55) 0%,
+      rgba(255, 236, 200, 0.18) 12%,
+      transparent 28%
+    ),
+    /* cool evening wash right */
+    linear-gradient(
+      255deg,
+      rgba(197, 221, 208, 0.45) 0%,
+      rgba(159, 184, 168, 0.12) 14%,
+      transparent 32%
+    ),
     radial-gradient(1200px 500px at 10% -10%, rgba(197, 221, 208, 0.55), transparent 55%),
-    radial-gradient(900px 400px at 100% 0%, rgba(212, 181, 168, 0.25), transparent 50%),
+    radial-gradient(900px 400px at 100% 0%, rgba(212, 181, 168, 0.28), transparent 50%),
+    radial-gradient(700px 380px at 50% 100%, rgba(232, 242, 237, 0.7), transparent 60%),
     var(--bg);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* Keep chrome above ambient vines (mobile wallpaper + desktop sides) */
+.site-header,
+.main,
+.site-footer,
+.toast-root,
+.stack-modal,
+.read-progress {
+  position: relative;
+  z-index: 2;
+}
+
+.site-header {
+  z-index: 40;
+}
+
+.main {
+  isolation: isolate;
+}
+
+/* ——— Side ambient (vine + verse + rays) ———
+   Always on: mobile = soft background identity behind content;
+   wide screens = classic side columns outside the content rail. */
+.side-ambient {
+  display: block;
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Soft god rays — full wash on mobile, side-masked on desktop */
+.side-rays {
+  position: absolute;
+  inset: 0;
+  background:
+    conic-gradient(
+      from 210deg at 0% 0%,
+      transparent 0deg,
+      rgba(255, 248, 230, 0.22) 8deg,
+      transparent 16deg,
+      rgba(255, 244, 220, 0.14) 24deg,
+      transparent 32deg,
+      rgba(255, 250, 236, 0.1) 40deg,
+      transparent 52deg
+    ),
+    conic-gradient(
+      from 140deg at 100% 8%,
+      transparent 0deg,
+      rgba(197, 221, 208, 0.12) 10deg,
+      transparent 20deg,
+      rgba(168, 201, 184, 0.08) 30deg,
+      transparent 42deg
+    );
+  opacity: 0.55;
+}
+
+/* —— Mobile / tablet: vines as soft wallpaper behind the page —— */
+.side-column {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 42vw;
+  max-width: 11rem;
+  padding: 0;
+  opacity: 1;
+}
+
+.side-column-left {
+  left: -8%;
+}
+
+.side-column-right {
+  right: -10%;
+}
+
+.side-vine-stack {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.side-vine-img {
+  position: absolute;
+  left: 50%;
+  height: auto;
+  max-width: none;
+  opacity: 0.22;
+  transform-origin: center center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.side-vine-cartoon {
+  width: min(13rem, 120%);
+  mix-blend-mode: multiply;
+  filter: saturate(0.75) brightness(1.05);
+  transform: translateX(-50%) rotate(38deg);
+}
+
+/* Fewer segments on small screens (perf + cleaner) */
+.side-vine-s1 { top: 4%; opacity: 0.2; }
+.side-vine-s2 { top: 32%; opacity: 0.18; transform: translateX(-50%) rotate(38deg) scale(0.95); }
+.side-vine-s3 { top: 60%; opacity: 0.16; transform: translateX(-50%) rotate(38deg) scale(0.92); }
+.side-vine-s4,
+.side-vine-s5 {
+  display: none;
+}
+
+.side-vine-stack-mirror .side-vine-cartoon {
+  transform: translateX(-50%) scaleX(-1) rotate(38deg);
+}
+.side-vine-stack-mirror .side-vine-s2 {
+  transform: translateX(-50%) scaleX(-1) rotate(38deg) scale(0.95);
+}
+.side-vine-stack-mirror .side-vine-s3 {
+  transform: translateX(-50%) scaleX(-1) rotate(38deg) scale(0.92);
+}
+
+/* Hide vertical verse under content on narrow viewports */
+.side-verse {
+  display: none;
+}
+
+/* Ensure page chrome stays above ambient vines */
+.site-header,
+.main,
+.site-footer {
+  position: relative;
+  z-index: 2;
+}
+
+.site-header {
+  z-index: 40;
+}
+
+/* Mid-width: a bit more presence, still behind content */
+@media (min-width: 721px) and (max-width: 1319px) {
+  .side-column {
+    width: 28vw;
+    max-width: 12rem;
+  }
+
+  .side-column-left {
+    left: -2%;
+  }
+
+  .side-column-right {
+    right: -3%;
+  }
+
+  .side-vine-cartoon {
+    width: min(14rem, 115%);
+  }
+
+  .side-vine-s1 { opacity: 0.26; }
+  .side-vine-s2 { opacity: 0.22; }
+  .side-vine-s3 { opacity: 0.2; display: block; }
+  .side-vine-s4 {
+    display: block;
+    top: 78%;
+    opacity: 0.16;
+    transform: translateX(-50%) rotate(38deg) scale(0.9);
+  }
+  .side-vine-stack-mirror .side-vine-s4 {
+    transform: translateX(-50%) scaleX(-1) rotate(38deg) scale(0.9);
+  }
+
+  .side-rays {
+    opacity: 0.7;
+  }
+}
+
+/* Wide desktop: classic side margins (outside content rail) */
+@media (min-width: 1320px) {
+  .side-rays {
+    opacity: 0.85;
+    mask-image: linear-gradient(
+      90deg,
+      #000 0%,
+      #000 12%,
+      transparent 26%,
+      transparent 74%,
+      #000 88%,
+      #000 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      #000 0%,
+      #000 12%,
+      transparent 26%,
+      transparent 74%,
+      #000 88%,
+      #000 100%
+    );
+  }
+
+  .side-column {
+    width: clamp(10rem, 14vw, 16rem);
+    max-width: none;
+  }
+
+  .side-column-left {
+    left: 0;
+  }
+
+  .side-column-right {
+    right: 0;
+  }
+
+  .side-vine-cartoon {
+    width: min(15.5rem, 118%);
+    filter: saturate(0.88) brightness(1.02);
+    transform: translateX(-50%) rotate(42deg);
+  }
+
+  .side-vine-s1 { top: -1%; opacity: 0.44; }
+  .side-vine-s2 {
+    display: block;
+    top: 18%;
+    opacity: 0.42;
+    transform: translateX(-50%) rotate(42deg) scale(0.98);
+  }
+  .side-vine-s3 {
+    display: block;
+    top: 38%;
+    opacity: 0.4;
+    transform: translateX(-50%) rotate(42deg) scale(0.97);
+  }
+  .side-vine-s4 {
+    display: block;
+    top: 58%;
+    opacity: 0.38;
+    transform: translateX(-50%) rotate(42deg) scale(0.96);
+  }
+  .side-vine-s5 {
+    display: block;
+    top: 76%;
+    opacity: 0.34;
+    transform: translateX(-50%) rotate(42deg) scale(0.94);
+  }
+
+  .side-vine-stack-mirror .side-vine-cartoon {
+    transform: translateX(-50%) scaleX(-1) rotate(42deg);
+  }
+  .side-vine-stack-mirror .side-vine-s2 {
+    transform: translateX(-50%) scaleX(-1) rotate(42deg) scale(0.98);
+  }
+  .side-vine-stack-mirror .side-vine-s3 {
+    transform: translateX(-50%) scaleX(-1) rotate(42deg) scale(0.97);
+  }
+  .side-vine-stack-mirror .side-vine-s4 {
+    transform: translateX(-50%) scaleX(-1) rotate(42deg) scale(0.96);
+  }
+  .side-vine-stack-mirror .side-vine-s5 {
+    transform: translateX(-50%) scaleX(-1) rotate(42deg) scale(0.94);
+  }
+
+  .side-verse {
+    display: block;
+    position: absolute;
+    top: 46%;
+    left: 50%;
+    margin: 0;
+    z-index: 2;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(0.92rem, 1.05vw, 1.15rem);
+    letter-spacing: 0.04em;
+    color: var(--teal);
+    opacity: 0.16;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    white-space: nowrap;
+    user-select: none;
+    padding: 0.65rem 0.2rem;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      rgba(247, 244, 239, 0.72) 18%,
+      rgba(247, 244, 239, 0.72) 82%,
+      transparent
+    );
+    transform: translate(-50%, -50%);
+  }
+
+  .side-column-left .side-verse {
+    transform: translate(-50%, -50%) rotate(180deg);
+  }
+}
+
+/* Ultra-wide: proportionally larger vines */
+@media (min-width: 1500px) {
+  .side-column {
+    width: clamp(12rem, 15vw, 18rem);
+  }
+
+  .side-vine-cartoon {
+    width: min(18rem, 120%);
+    opacity: 0.48;
+  }
+
+  .side-vine-s2 { opacity: 0.45; }
+  .side-vine-s3 { opacity: 0.42; }
+  .side-vine-s4 { opacity: 0.4; }
+  .side-vine-s5 { opacity: 0.36; }
+
+  .side-verse {
+    opacity: 0.18;
+    font-size: clamp(1rem, 1.1vw, 1.25rem);
+  }
+
+  .side-rays {
+    opacity: 0.95;
+  }
+}
+
+/* Quiet hours: cooler, dimmer sides */
+html.quiet-hours .side-rays {
+  opacity: 0.45;
+  filter: saturate(0.75) brightness(0.9);
+}
+
+html.quiet-hours .side-vine-img {
+  opacity: 0.28;
+  filter: saturate(0.65) brightness(0.95);
+}
+
+html.quiet-hours .side-verse {
+  opacity: 0.09;
+}
+
+/* Quiet room easter: vines soft-glow on dark */
+html.quiet-room .side-vine-img {
+  mix-blend-mode: screen;
+  opacity: 0.35;
+  filter: saturate(0.7) brightness(1.15) hue-rotate(-8deg);
+}
+
+html.quiet-room .side-verse {
+  color: #c5ddd0;
+  opacity: 0.2;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(21, 36, 32, 0.75) 18%,
+    rgba(21, 36, 32, 0.75) 82%,
+    transparent
+  );
+}
+
+html.quiet-room .side-verse {
+  color: #c5ddd0;
+  opacity: 0.16;
+}
+
+html.quiet-room .side-rays {
+  opacity: 0.35;
+  filter: hue-rotate(20deg) brightness(0.7);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .side-rays {
+    opacity: 0.5;
+  }
 }
 
 a {
@@ -90,6 +476,48 @@ img {
   justify-content: space-between;
   gap: 1rem;
   min-height: var(--header-h);
+  flex-wrap: wrap;
+  position: relative;
+}
+
+/* —— Mobile nav toggle —— */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  cursor: pointer;
+  z-index: 5;
+}
+
+.nav-toggle-bar {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: var(--teal);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.nav-toggle:focus-visible {
+  outline: 2px solid var(--mint-deep);
+  outline-offset: 2px;
 }
 
 .brand {
@@ -781,13 +1209,340 @@ code {
   color: var(--teal);
 }
 
+/* ——— Watercolor ivy ornaments (hero style, not side margins / not on nav) ——— */
+
+/* Hero — main ivy (right) + softer accent (left, behind kicker text) */
+.hero-ivy {
+  display: block;
+  position: absolute;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-ivy-main {
+  right: -1.25rem;
+  bottom: -1.5rem;
+  width: min(9rem, 42vw);
+  z-index: 1;
+  opacity: 0.55;
+  transform: rotate(-8deg);
+  filter: drop-shadow(0 6px 14px rgba(20, 50, 40, 0.18));
+}
+
+/* Sits near the kicker — keep very light so “Gospel publishing catalog” stays readable */
+.hero-ivy-accent {
+  left: -1.5rem;
+  top: -1.1rem;
+  width: min(5.5rem, 28vw);
+  z-index: 0;
+  opacity: 0.22;
+  transform: rotate(16deg) scaleX(-1);
+  filter: saturate(0.9) brightness(1.05);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+}
+
+@media (min-width: 720px) {
+  .hero-ivy-main {
+    width: min(12.5rem, 28%);
+    right: 1.25rem;
+    bottom: -1.5rem;
+    opacity: 0.88;
+    z-index: 2;
+    transform: rotate(-6deg);
+  }
+
+  .hero-ivy-accent {
+    width: min(8.25rem, 18%);
+    left: -0.35rem;
+    top: -1.5rem;
+    opacity: 0.26;
+  }
+}
+
+@media (min-width: 900px) {
+  .hero-ivy-main {
+    width: min(13.5rem, 26%);
+    right: 2.5rem;
+  }
+
+  .hero-ivy-accent {
+    width: min(9rem, 17%);
+    left: -0.5rem;
+    opacity: 0.24;
+  }
+}
+
+/* Page headers (Books, Your Shelter, …) */
+.page-header-ivy {
+  position: relative;
+  overflow: visible;
+  padding-right: 4.5rem;
+}
+
+.page-header-ivy-img {
+  display: block;
+  position: absolute;
+  right: -0.75rem;
+  top: -0.65rem;
+  width: 4.25rem;
+  height: auto;
+  opacity: 0.4;
+  pointer-events: none;
+  user-select: none;
+  transform: rotate(-8deg);
+  filter: drop-shadow(0 6px 12px rgba(30, 77, 66, 0.1));
+  z-index: 0;
+}
+
+.page-header-ivy h1,
+.page-header-ivy .lede {
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 640px) {
+  .page-header-ivy-img {
+    width: 6.5rem;
+    right: 0;
+    opacity: 0.7;
+  }
+}
+
+/* Book detail card corner */
+.detail-ivy {
+  display: block;
+  position: absolute;
+  right: -0.5rem;
+  bottom: -0.75rem;
+  width: 5.5rem;
+  height: auto;
+  opacity: 0.35;
+  pointer-events: none;
+  user-select: none;
+  transform: rotate(-10deg);
+  mix-blend-mode: multiply;
+  z-index: 0;
+  filter: drop-shadow(0 6px 12px rgba(30, 77, 66, 0.1));
+}
+
+.book-detail {
+  position: relative;
+}
+
+.book-detail > *:not(.detail-ivy) {
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 720px) {
+  .detail-ivy {
+    width: 8.5rem;
+    right: -0.5rem;
+    bottom: -1rem;
+    opacity: 0.5;
+  }
+}
+
+/* Side CTA ivy */
+.side-cta {
+  position: relative;
+  overflow: hidden;
+}
+
+.side-cta-ivy {
+  position: absolute;
+  right: -1.1rem;
+  bottom: -1.4rem;
+  width: 5.25rem;
+  height: auto;
+  opacity: 0.35;
+  pointer-events: none;
+  user-select: none;
+  transform: rotate(-14deg);
+  filter: brightness(1.25) saturate(0.85);
+  z-index: 0;
+}
+
+.side-cta h3,
+.side-cta p,
+.side-cta .btn {
+  position: relative;
+  z-index: 1;
+}
+
+.tonight-ivy {
+  display: block;
+  position: absolute;
+  left: -1.5rem;
+  bottom: -1.35rem;
+  width: 5rem;
+  height: auto;
+  opacity: 0.4;
+  pointer-events: none;
+  user-select: none;
+  transform: rotate(12deg) scaleX(-1);
+  mix-blend-mode: multiply;
+  z-index: 0;
+}
+
+@media (min-width: 720px) {
+  .tonight-ivy {
+    width: 6.5rem;
+    left: -1.25rem;
+    bottom: -1.5rem;
+    opacity: 0.55;
+  }
+}
+
+/* ——— Footer vines (organic layer behind text, all breakpoints) ——— */
+.footer-vines {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.footer-vine {
+  position: absolute;
+  height: auto;
+  max-width: none;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* On dark teal: screen blend so leaves read as soft light */
+.footer-vine-cartoon {
+  mix-blend-mode: screen;
+  filter: brightness(1.55) saturate(0.55) contrast(0.95);
+  opacity: 0.28;
+}
+
+.footer-vine-ivy {
+  mix-blend-mode: screen;
+  filter: brightness(1.5) saturate(0.65);
+  opacity: 0.34;
+}
+
+/* Mobile — loose, cropped sprigs (not mirrored pillars) */
+.footer-vine-c1 {
+  left: -18%;
+  top: -40%;
+  width: min(14rem, 70vw);
+  transform: rotate(28deg);
+  opacity: 0.26;
+}
+
+.footer-vine-i1 {
+  right: -12%;
+  top: -58%;
+  width: min(8.5rem, 46vw);
+  transform: rotate(-18deg);
+  opacity: 0.38;
+}
+
+.footer-vine-i2 {
+  left: 18%;
+  bottom: -62%;
+  width: min(7rem, 40vw);
+  transform: rotate(42deg) scaleX(-1);
+  opacity: 0.32;
+}
+
+.footer-vine-c2 {
+  right: -22%;
+  bottom: -48%;
+  width: min(12rem, 62vw);
+  transform: scaleX(-1) rotate(-24deg);
+  opacity: 0.24;
+}
+
+@media (min-width: 720px) {
+  .footer-vine-c1 {
+    left: -8%;
+    top: -52%;
+    width: min(16rem, 36vw);
+    transform: rotate(32deg);
+    opacity: 0.28;
+  }
+
+  .footer-vine-i1 {
+    right: 6%;
+    top: -48%;
+    width: min(10rem, 22vw);
+    transform: rotate(-22deg);
+    opacity: 0.36;
+  }
+
+  .footer-vine-i2 {
+    left: 28%;
+    bottom: -55%;
+    width: min(8.5rem, 18vw);
+    transform: rotate(36deg) scaleX(-1);
+    opacity: 0.3;
+  }
+
+  .footer-vine-c2 {
+    right: -6%;
+    bottom: -42%;
+    width: min(15rem, 32vw);
+    transform: scaleX(-1) rotate(-28deg);
+    opacity: 0.26;
+  }
+}
+
+@media (min-width: 1100px) {
+  .footer-vine-c1 {
+    left: 4%;
+    top: -58%;
+    width: min(17rem, 22vw);
+    opacity: 0.3;
+  }
+
+  .footer-vine-i1 {
+    right: 12%;
+    top: -52%;
+    width: min(11rem, 14vw);
+    opacity: 0.34;
+  }
+
+  .footer-vine-i2 {
+    left: 38%;
+    bottom: -58%;
+    width: min(9rem, 12vw);
+    opacity: 0.28;
+  }
+
+  .footer-vine-c2 {
+    right: 2%;
+    bottom: -48%;
+    width: min(16rem, 20vw);
+    opacity: 0.28;
+  }
+}
+
 /* ——— Footer ——— */
 .site-footer {
   margin-top: auto;
-  background: var(--teal);
+  background:
+    radial-gradient(ellipse 80% 120% at 10% 120%, rgba(197, 221, 208, 0.14), transparent 55%),
+    radial-gradient(ellipse 70% 100% at 90% -20%, rgba(255, 255, 255, 0.08), transparent 50%),
+    var(--teal);
   color: rgba(255, 255, 255, 0.82);
-  padding: 2rem 0 2.25rem;
+  padding: 2.35rem 0 2.5rem;
   font-size: 0.92rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.site-footer .footer-inner {
+  position: relative;
+  z-index: 1;
 }
 
 .site-footer a {
@@ -814,6 +1569,17 @@ code {
   font-style: italic;
   color: #fff;
   margin: 0 0 0.25rem;
+}
+
+.footer-brand-link {
+  color: #fff !important;
+  text-decoration: none !important;
+  font: inherit;
+  font-style: italic;
+}
+
+.footer-brand-link:hover {
+  opacity: 0.9;
 }
 
 .site-footer p {
@@ -907,6 +1673,95 @@ code {
   width: 100%;
 }
 
+/* ——— Empty states ——— */
+.empty-state {
+  text-align: center;
+  padding: 2rem 1.35rem;
+  background: var(--surface);
+  border: 1.5px dashed var(--mint-deep);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin: 0 0 1.5rem;
+}
+
+.empty-state-title {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: var(--teal);
+}
+
+.empty-state-lede {
+  margin: 0 0 1.1rem;
+  color: var(--muted);
+  max-width: 28rem;
+  margin-inline: auto;
+}
+
+.empty-state .btn {
+  margin-top: 0.25rem;
+}
+
+/* ——— About page ——— */
+.about-page {
+  max-width: 48rem;
+}
+
+.about-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 0 0 1.75rem;
+}
+
+@media (min-width: 720px) {
+  .about-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.about-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.2rem 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.about-card h2 {
+  margin: 0 0 0.55rem;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--teal);
+}
+
+.about-card p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.98rem;
+}
+
+.about-list {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--ink);
+}
+
+.about-list li {
+  margin: 0.35rem 0;
+}
+
+.about-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.footer-meta {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
 /* ——— Responsive ——— */
 @media (max-width: 720px) {
   .filters {
@@ -914,14 +1769,42 @@ code {
   }
 
   .header-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0.85rem 0;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 0.65rem 0;
     min-height: auto;
   }
 
+  .nav-toggle {
+    display: flex;
+    margin-left: auto;
+  }
+
   .nav {
+    display: none;
     width: 100%;
+    flex-basis: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.15rem;
+    padding: 0.5rem 0 0.75rem;
+    border-top: 1px solid var(--line);
+    margin-top: 0.35rem;
+  }
+
+  .nav.is-open {
+    display: flex;
+  }
+
+  .nav a,
+  .nav .link-button {
+    padding: 0.65rem 0.35rem;
+    border-bottom: none;
+  }
+
+  .nav .btn-small {
+    width: 100%;
+    margin-top: 0.35rem;
   }
 }
 
@@ -1489,6 +2372,8 @@ html.quiet-hours .hero {
 
 /* Tonight's pick */
 .tonight-pick {
+  position: relative;
+  overflow: hidden;
   margin: 0 0 2.25rem;
   padding: 1.25rem 1.35rem;
   background: var(--surface);
@@ -1498,6 +2383,8 @@ html.quiet-hours .hero {
 }
 
 .tonight-pick-head {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -1514,6 +2401,8 @@ html.quiet-hours .hero {
 }
 
 .tonight-pick-stage {
+  position: relative;
+  z-index: 1;
   min-height: 7.5rem;
   border-radius: var(--radius-sm);
   background: var(--surface-warm);
