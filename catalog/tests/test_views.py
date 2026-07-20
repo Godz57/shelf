@@ -33,6 +33,13 @@ class CatalogViewTests(TestCase):
         self.assertContains(res, "Grace and Truth")
         self.assertContains(res, "Jane Doe")
 
+    def test_cover_image_rendered_when_url_set(self):
+        self.book.cover_url = "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600"
+        self.book.save(update_fields=["cover_url"])
+        res = self.client.get(self.book.get_absolute_url())
+        self.assertContains(res, self.book.cover_url)
+        self.assertContains(res, 'alt="Cover of Grace and Truth"')
+
     def test_author_detail_200(self):
         res = self.client.get(self.author.get_absolute_url())
         self.assertEqual(res.status_code, 200)

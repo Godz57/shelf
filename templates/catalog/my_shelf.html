@@ -13,8 +13,19 @@
     {% for item in items %}
       <li class="book-card">
         <a class="card-link" href="{{ item.book.get_absolute_url }}">
-          <div class="book-card-cover cover-{{ item.book.category.slug|default:'default' }}">
-            <span class="cover-initial" aria-hidden="true">{{ item.book.title|slice:":1" }}</span>
+          <div class="book-card-cover cover-{{ item.book.category.slug|default:'default' }}{% if item.book.cover_url %} has-image{% endif %}">
+            {% if item.book.cover_url %}
+              <img
+                src="{{ item.book.cover_url }}"
+                alt="Cover of {{ item.book.title }}"
+                width="400"
+                height="600"
+                loading="lazy"
+                decoding="async"
+              >
+            {% else %}
+              <span class="cover-initial" aria-hidden="true">{{ item.book.title|slice:":1" }}</span>
+            {% endif %}
           </div>
           <div class="book-card-body">
             <h2>{{ item.book.title }}</h2>
@@ -24,7 +35,7 @@
             </div>
           </div>
         </a>
-        <div style="padding: 0 1.15rem 1rem;">
+        <div class="card-actions">
           <form method="post" action="{% url 'catalog:shelf_remove' item.book.id %}">
             {% csrf_token %}
             <input type="hidden" name="next" value="{% url 'catalog:my_shelf' %}">

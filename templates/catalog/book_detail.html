@@ -10,8 +10,19 @@
   </p>
 
   <div class="detail-layout">
-    <div class="detail-cover cover-{{ book.category.slug|default:'default' }}" aria-hidden="true">
-      <span class="cover-initial">{{ book.title|slice:":1" }}</span>
+    <div class="detail-cover cover-{{ book.category.slug|default:'default' }}{% if book.cover_url %} has-image{% endif %}">
+      {% if book.cover_url %}
+        <img
+          src="{{ book.cover_url }}"
+          alt="Cover of {{ book.title }}"
+          width="400"
+          height="600"
+          loading="eager"
+          decoding="async"
+        >
+      {% else %}
+        <span class="cover-initial" aria-hidden="true">{{ book.title|slice:":1" }}</span>
+      {% endif %}
     </div>
 
     <div>

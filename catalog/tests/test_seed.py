@@ -12,3 +12,7 @@ class SeedCommandTests(TestCase):
         call_command("seed_catalog", stdout=out)
         self.assertGreaterEqual(Book.objects.count(), 5)
         self.assertIn("Seeded", out.getvalue())
+        with_covers = Book.objects.exclude(cover_url="").count()
+        self.assertGreaterEqual(with_covers, 5)
+        sample = Book.objects.exclude(cover_url="").first()
+        self.assertTrue(sample.cover_url.startswith("https://"))
